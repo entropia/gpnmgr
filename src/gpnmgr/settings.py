@@ -167,35 +167,35 @@ STATIC_ROOT = "staticfiles/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-OAUTH_NAME = 'gpnmgr'
-OAUTH_SECRET = 'XXXXXXXXXXXXXXXXXXXXX'
-OPENID_CONF_URL = 'https://keycloak.example.com/realms/keycloak/.well-known/openid-configuration'
-OAUTH_CLIENT_SCOPES = ['openid', 'profile']
-OAUTH_DISPLAY_NAME_CLAIM = 'name'
-OAUTH_USERNAME_CLAIM = 'preferred_username'
-OAUTH_GROUP_CLAIM = 'groups'
-OAUTH_EMAIL_CLAIM = 'email'
+OAUTH_NAME = os.environ.get('OAUTH_NAME', 'gpnmgr')
+OAUTH_SECRET = os.environ.get('OAUTH_SECRET', 'XXXXXXXXXXXXXXXXXXXXX')
+OPENID_CONF_URL = os.environ.get('OPENID_CONF_URL', 'https://keycloak.example.com/realms/keycloak/.well-known/openid-configuration')
+OAUTH_CLIENT_SCOPES = os.environ.get('OAUTH_CLIENT_SCOPES', 'openid,profile').split(',')
+OAUTH_DISPLAY_NAME_CLAIM = os.environ.get('OAUTH_DISPLAY_NAME_CLAIM', 'name')
+OAUTH_USERNAME_CLAIM = os.environ.get('OAUTH_USERNAME_CLAIM', 'preferred_username')
+OAUTH_GROUP_CLAIM = os.environ.get('OAUTH_GROUP_CLAIM', 'groups')
+OAUTH_EMAIL_CLAIM = os.environ.get('OAUTH_EMAIL_CLAIM', 'email')
 
-OAUTH_TEAM_MANAGER_GROUP = 'team-manager'
-OAUTH_FEDI_MANAGER_GROUP = 'gts-admin'
-OAUTH_ADMIN_GROUP = 'full-access'
+OAUTH_TEAM_MANAGER_GROUP = os.environ.get('OAUTH_TEAM_MANAGER_GROUP', 'team-manager')
+OAUTH_FEDI_MANAGER_GROUP = os.environ.get('OAUTH_FEDI_MANAGER_GROUP', 'gts-admin')
+OAUTH_ADMIN_GROUP = os.environ.get('OAUTH_ADMIN_GROUP', 'full-access')
 
 LOGIN_URL = reverse_lazy('login')
 LOGIN_REDIRECT_URL = reverse_lazy('user_profile')
 OAUTH_GROUP_IGNORE_REGEX = r'ignore group regex'
 
-LDAP_BIND_DN = ''
-LDAP_BIND_PASSWORD = ''
-LDAP_BIND_URL = ''
-LDAP_BASE_DN = 'dc=example,dc=com'
-LDAP_USER_PK = 'uid'
-LDAP_USER_OU = 'ou=users'
-LDAP_GROUP_PK = 'cn'
-LDAP_GROUP_OU = 'ou=groups'
-LDAP_GROUP_MEMBER_KEY = 'member'
-LDAP_GROUP_MANAGER_KEY = 'owner'
-LDAP_USER_OBJECT_CLASS = 'inetOrgPerson'
-LDAP_GROUP_OBJECT_CLASS = 'groupOfNames'
+LDAP_BIND_DN = os.environ.get('LDAP_BIND_DN', '')
+LDAP_BIND_PASSWORD = os.environ.get('LDAP_BIND_PASSWORD', '')
+LDAP_BIND_URL = os.environ.get('LDAP_BIND_URL', '')
+LDAP_BASE_DN = os.environ.get('LDAP_BASE_DN', 'dc=example,dc=com')
+LDAP_USER_PK = os.environ.get('LDAP_USER_PK', 'uid')
+LDAP_USER_OU = os.environ.get('LDAP_USER_OU', 'ou=users')
+LDAP_GROUP_PK = os.environ.get('LDAP_GROUP_PK', 'cn')
+LDAP_GROUP_OU = os.environ.get('LDAP_GROUP_OU', 'ou=groups')
+LDAP_GROUP_MEMBER_KEY = os.environ.get('LDAP_GROUP_MEMBER_KEY', 'member')
+LDAP_GROUP_MANAGER_KEY = os.environ.get('LDAP_GROUP_MANAGER_KEY', 'owner')
+LDAP_USER_OBJECT_CLASS = os.environ.get('LDAP_USER_OBJECT_CLASS', 'inetOrgPerson')
+LDAP_GROUP_OBJECT_CLASS = os.environ.get('LDAP_GROUP_OBJECT_CLASS', 'groupOfNames')
 
 try:
     from bootstrap.settings import BOOTSTRAP5
