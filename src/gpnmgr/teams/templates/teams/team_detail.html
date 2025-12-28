@@ -1,0 +1,319 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="row row-cols-1 row-cols-md-2 g-2 my-3" data-masonry='{"percentPosition": true }'>
+        <div class="col">
+            <div class="card">
+                <div class="card-header card-header-buttons">
+                    <h5>{% trans 'Team' %} {{ object }}</h5>
+                    <div>
+                        {% if perms.teams.manage_teams %}
+                            <a class="text-primary" href="#" data-bs-toggle="modal"
+                               data-bs-target="#modifyTeamModal"><span class="fa-fw fa-solid fa-pencil"></span></a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="card-body">
+                    <dl class="dl-horizontal">
+                        <dt>{% trans 'Abbreviation' %}</dt>
+                        <dd>{{ object.slug }}</dd>
+                        <dt>{% trans 'Name' %}</dt>
+                        <dd>{{ object.name }}</dd>
+                        <dt>{% trans 'Cost Center' %}</dt>
+                        <dd>{{ object.cost_center|default_if_none:'-' }}</dd>
+                        <dt>{% trans 'Primary contact' %}</dt>
+                        <dd>{{ object.primary_contact|default_if_none:'-' }}</dd>
+                        <dt>{% trans 'LDAP Name' %}</dt>
+                        <dd>{{ object.ldap_name|default_if_none:'-' }}</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-header card-header-buttons">
+                    <h5>{% trans 'Members' %}</h5>
+                    {% if is_team_admin %}
+                        <div>
+                            <a class="text-primary" href="#" data-bs-toggle="modal"
+                               data-bs-target="#addTeamMemberModal"><span
+                                    class="fa-fw fa-solid fa-user-plus"></span></a>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        {% if object.admins.count > 0 %}
+                            <li class="list-group-item list-group-item-dark d-flex justify-content-between align-items-center">
+                                {% trans 'Admins' %}
+                            </li>
+                            {% for member in object.admins.all %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    {{ member }}
+                                    <div class="btn-group" role="group">
+                                        {% if perms.teams.manage_teams %}
+                                            <a class="badge btn btn-info" href="#" data-bs-toggle="modal"
+                                               data-bs-target="#confirmDemotionModal{{ member.pk }}"><span
+                                                    class="fa-solid fa-down-long"></span></a>
+                                            <a class="badge btn btn-danger" href="#" data-bs-toggle="modal"
+                                               data-bs-target="#confirmDeleteModal{{ member.pk }}"><span
+                                                    class="fa-solid fa-user-minus"></span></a>
+                                        {% endif %}
+                                    </div>
+                                </li>
+                            {% endfor %}
+                            <li class="list-group-item list-group-item-dark d-flex justify-content-between align-items-center">
+                                {% trans 'Members' %}
+                            </li>
+                        {% endif %}
+                        {% for member in object.non_admins.all %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                {{ member }}
+                                <div class="btn-group" role="group">
+                                    {% if perms.teams.manage_teams %}
+                                        <a class="badge btn btn-info" href="#" data-bs-toggle="modal"
+                                           data-bs-target="#confirmPromotionModal{{ member.pk }}"><span
+                                                class="fa-solid fa-up-long"></span></a>
+                                    {% endif %}
+                                    {% if is_team_admin %}
+                                        <a class="badge btn btn-danger" href="#" data-bs-toggle="modal"
+                                           data-bs-target="#confirmDeleteModal{{ member.pk }}"><span
+                                                class="fa-solid fa-user-minus"></span></a>
+                                    {% endif %}
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block modals %}
+    {% if perms.teams.manage_teams %}
+        {% include 'teams/team_modify.html' %}
+        {% for member in object.non_admins.all %}
+            <div class="modal fade" id="confirmPromotionModal{{ member.pk }}" tabindex="-1"
+                 aria-labelledby="confirmPromotionModal{{ member.pk }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5"
+                                id="confirmPromotionModal{{ member.pk }}Label">{% trans 'Do you really want to promote' %} {{ member }}?</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="{% trans 'Close' %}"></button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">{% trans 'Close' %}</button>
+                            <a class="btn btn-success"
+                               href="{% url 'team_member_promote' object.pk member.pk %}">{% trans 'Promote' %}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {% for member in object.admins.all %}
+            <div class="modal fade" id="confirmDemotionModal{{ member.pk }}" tabindex="-1"
+                 aria-labelledby="confirmDemotionModal{{ member.pk }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5"
+                                id="confirmPromotionModal{{ member.pk }}Label">{% trans 'Do you really want to promote' %} {{ member }}?</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="{% trans 'Close' %}"></button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">{% trans 'Close' %}</button>
+                            <a class="btn btn-danger"
+                               href="{% url 'team_member_demote' object.pk member.pk %}">{% trans 'Demote' %}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% if is_team_admin %}
+        {% include 'teams/team_member_add.html' %}
+    {% endif %}
+    {% if is_team_admin %}
+        {% for member in object.members.all %}
+            <div class="modal fade" id="confirmDeleteModal{{ member.pk }}" tabindex="-1"
+                 aria-labelledby="confirmDeleteModal{{ member.pk }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5"
+                                id="confirmDeleteModal{{ member.pk }}Label">{% trans 'Do you really want to remove' %} {{ member }}?</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="{% trans 'Close' %}"></button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">{% trans 'Close' %}</button>
+                            <a class="btn btn-danger"
+                               href="{% url 'team_member_remove' object.pk member.pk %}">{% trans 'Remove' %}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+{% block javascript %}
+    {% if perms.teams.manage_teams %}
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                modalSubmitHandler('modifyTeamModal');
+                modalResetHandler('modifyTeamModal');
+            });
+        </script>
+    {% endif %}
+    {% if is_team_admin %}
+        <script>
+            function addMemberHandler() {
+                const input = document.querySelector('#id_member_input');
+                const resultsMenu = document.querySelector('#member-add-search-results');
+                const selectedContainer = document.querySelector('#member-add-selected-items');
+                const hiddenInput = document.querySelector('#id_members');
+
+                const dropdown = new bootstrap.Dropdown(input, {
+                    autoClose: true
+                });
+                dropdown._menu = resultsMenu
+
+                let debounceTimeout = null;
+                const selectedItems = new Map(); // username -> display_name
+                let highlightedIndex = -1;
+
+                function updateHiddenInput() {
+                    hiddenInput.value = Array.from(selectedItems.keys()).join(',');
+                }
+
+                function highlightItem(index) {
+                    const items = Array.from(resultsMenu.querySelectorAll('.dropdown-item'));
+                    items.forEach((el, i) => el.classList.toggle('active', i === index));
+                }
+
+                function getItems() {
+                    return Array.from(resultsMenu.querySelectorAll('.dropdown-item'));
+                }
+
+                function renderSelectedItems() {
+                    selectedContainer.innerHTML = '';
+
+                    selectedItems.forEach((name, id) => {
+                        const badge = document.createElement('span');
+                        badge.className = 'badge bg-secondary d-flex align-items-center';
+                        badge.textContent = name;
+
+                        const removeBtn = document.createElement('button');
+                        removeBtn.type = 'button';
+                        removeBtn.className = 'btn-close btn-close-white ms-2';
+                        removeBtn.style.fontSize = '0.6rem';
+
+                        removeBtn.addEventListener('click', () => {
+                            selectedItems.delete(id);
+                            renderSelectedItems();
+                            updateHiddenInput();
+                        });
+
+                        badge.appendChild(removeBtn);
+                        selectedContainer.appendChild(badge);
+                    });
+                }
+
+                function clearResults() {
+                    resultsMenu.innerHTML = '';
+                    dropdown.hide();
+                }
+
+                input.addEventListener('input', function () {
+                    const query = input.value.trim();
+
+                    clearResults();
+
+                    if (query.length < 3) {
+                        return;
+                    }
+
+                    clearTimeout(debounceTimeout);
+                    debounceTimeout = setTimeout(() => {
+                        fetch(`/user/search/${encodeURIComponent(query)}/`, {
+                            headers: {'Accept': 'application/json'}
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                clearResults();
+
+                                data.results.forEach(item => {
+                                    if (selectedItems.has(String(item.username))) {
+                                        return;
+                                    }
+
+                                    const li = document.createElement('li');
+                                    const btn = document.createElement('button');
+
+                                    btn.type = 'button';
+                                    btn.className = 'dropdown-item';
+                                    btn.textContent = item.display_name;
+
+                                    btn.addEventListener('click', () => {
+                                        selectedItems.set(String(item.username), item.display_name);
+                                        renderSelectedItems();
+                                        updateHiddenInput();
+                                        input.value = '';
+                                        input.focus();
+                                        clearResults();
+                                    });
+
+                                    li.appendChild(btn);
+                                    resultsMenu.appendChild(li);
+                                });
+
+                                if (resultsMenu.children.length > 0) {
+                                    dropdown.show();
+                                }
+                            })
+                            .catch(clearResults);
+                    }, 300);
+                });
+
+
+                input.addEventListener('keydown', function (e) {
+                    const items = getItems();
+                    if (!items.length) return;
+
+                    if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        highlightedIndex = (highlightedIndex + 1) % items.length;
+                        highlightItem(highlightedIndex);
+                    } else if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        highlightedIndex = (highlightedIndex - 1 + items.length) % items.length;
+                        highlightItem(highlightedIndex);
+                    } else if (e.key === 'Enter') {
+                        if (highlightedIndex >= 0) {
+                            e.preventDefault(); // prevent form submission
+                            items[highlightedIndex].click();
+                        }
+                        if (items.length === 1) {
+                            e.preventDefault(); // prevent form submission
+                            items[0].click();
+                        }
+                    } else if (e.key === 'Escape') {
+                        clearResults();
+                    }
+                });
+
+            }
+
+            document.addEventListener('DOMContentLoaded', () => {
+                modalSubmitHandler('addTeamMemberModal', addMemberHandler);
+                modalResetHandler('addTeamMemberModal', addMemberHandler);
+                addMemberHandler();
+            });
+        </script>
+    {% endif %}
+{% endblock %}

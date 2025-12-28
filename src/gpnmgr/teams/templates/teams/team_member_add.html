@@ -1,0 +1,35 @@
+<div class="modal fade" id="addTeamMemberModal" tabindex="-1" aria-labelledby="addTeamMemberModal"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" id="addTeamMemberModalContent">
+            <form method="post" action="{% url 'team_member_add' object.pk %}" id="addTeamMemberModalForm"
+                  autocomplete="off">{% csrf_token %}
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addTeamMemberModalLabel">{% trans 'Add member' %}</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="{% trans 'Close' %}"></button>
+                </div>
+                <div class="modal-body row gx-3 gy-0">
+                    {% bootstrap_form_errors member_add_form layout='inline' type='non_fields' %}
+
+                    <div id="member-add-selected-items" class="d-flex flex-wrap gap-2 mb-2"></div>
+
+                    <div class="col-md-12 dropdown">
+                        {% bootstrap_field member_add_form.member_input %}
+                        <ul id="member-add-search-results" class="dropdown-menu">
+
+                        </ul>
+                    </div>
+                    {% bootstrap_field member_add_form.members %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal">{% trans 'Close' %}</button>
+                    <button type="button" id="addTeamMemberModalReset"
+                            class="btn btn-danger">{% trans 'Reset' %}</button>
+                    <button type="submit" class="btn btn-info">{% trans 'Add' %}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

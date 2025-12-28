@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <title>{{ title }}</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!--<script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>-->
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="{% static 'css/app.css' %}"/>
+    <link rel="shortcut icon" href="{% static "images/favicon.ico" %}"/>
+    {% block head %}{% endblock %}
+</head>
+<body>
+<header>
+    {% include "top_nav.html" %}
+</header>
+<main>
+    <div class="container px-4">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} m-3 d-flex align-items-center justify-content-between"
+                     role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% block content %}{% endblock %}
+    </div>
+</main>
+{% block modals %}{% endblock %}
+{% bootstrap_javascript %}
+<script>
+    function modalSubmitHandler(modal_prefix, additionalHandler = null) {
+        const modalForm = document.querySelector(`#${modal_prefix}Form`);
+
+        modalForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const formData = new FormData(modalForm);
+
+            try {
+                const result = await fetch(modalForm.action, {
+                    method: modalForm.method,
+                    headers: {'X-Requested-With': 'XMLHttpRequest'},
+                    body: formData
+                });
+                const data = await result.json()
+                if (data.success) {
+                    const modalInstance = bootstrap.Modal.getInstance(document.querySelector(`#${modal_prefix}`));
+                    modalInstance.hide();
+                    modalForm.reset();
+                    location.reload();
+                } else {
+                    const form = new DOMParser().parseFromString(data.html, "text/html");
+                    document.querySelector(`#${modal_prefix}Content .modal-body`).innerHTML = form.querySelector(`#${modal_prefix}Content .modal-body`).innerHTML;
+                    document.querySelectorAll(`#${modal_prefix}Form .invalid-feedback`).forEach(el => {
+                        el.style.display = 'block';
+                    });
+                    additionalHandler?.();
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    }
+
+    function modalResetHandler(modal_prefix, additionalHandler = null) {
+        const modalForm = document.querySelector(`#${modal_prefix}Form`);
+        const modalFormReset = document.querySelector(`#${modal_prefix}Reset`);
+
+        modalFormReset.addEventListener('click', async function (e) {
+            try {
+                const result = await fetch(modalForm.action, {
+                    headers: {'X-Requested-With': 'XMLHttpRequest'}
+                });
+                const data = await result.text();
+                const form = new DOMParser().parseFromString(data, "text/html");
+                document.querySelector(`#${modal_prefix}Content .modal-body`).innerHTML = form.querySelector(`#${modal_prefix}Content .modal-body`).innerHTML;
+                additionalHandler?.();
+            } catch (error) {
+                console.error('Error:', error)
+            }
+        });
+    }
+</script>
+{% block javascript %}{% endblock %}
+<script type="text/javascript" src="{% static "js/fontawesome-all.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/masonary.pkgd.min.js" %}"></script>
+</body>
+</html>

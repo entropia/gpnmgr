@@ -1,0 +1,137 @@
+:root,
+[data-bs-theme=light] {
+    --bs-primary: #ea5b0c;
+    --bs-secondary: #6c757d;
+    --bs-success: #48C02A;
+    --bs-info: #100ceb;
+    --bs-warning: #eaca0c;
+    --bs-danger: #ea0c2c;
+    --bs-light: #f8f9fa;
+    --bs-dark: #212529;
+    --bs-primary-rgb: 234, 91, 12;
+    --bs-secondary-rgb: 108, 117, 125;
+    --bs-success-rgb: 58, 235, 12;
+    --bs-info-rgb: 16, 12, 235;
+    --bs-warning-rgb: 234, 202, 12;
+    --bs-danger-rgb: 234, 12, 44;
+    --bs-light-rgb: 248, 249, 250;
+    --bs-dark-rgb: 33, 37, 41;
+}
+
+.navbar {
+    --bs-emphasis-color-rgb: 255, 255, 255;
+    --bs-navbar-color: rgba(var(--bs-emphasis-color-rgb), 0.85);
+    --bs-navbar-hover-color: rgba(var(--bs-emphasis-color-rgb), 1);
+    --bs-navbar-disabled-color: rgba(var(--bs-emphasis-color-rgb), 0.5);
+    --bs-navbar-active-color: rgba(var(--bs-emphasis-color-rgb), 1);
+    font-weight: 510;
+}
+
+.btn-primary {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #ea5b0c;
+    --bs-btn-border-color: #ea5b0c;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #c64d0a;
+    --bs-btn-hover-border-color: #b9480a;
+    --bs-btn-focus-shadow-rgb: 49, 132, 253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #c64d0a;
+    --bs-btn-active-border-color: #b9480a;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #ea5b0c;
+    --bs-btn-disabled-border-color: #ea5b0c
+}
+
+.btn-success {
+    --bs-btn-color: #212529;
+    --bs-btn-bg: #48C02A;
+    --bs-btn-border-color: #48C02A;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #3ca123;
+    --bs-btn-hover-border-color: #389621;
+    --bs-btn-focus-shadow-rgb: 99, 201, 74;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #3ca123;
+    --bs-btn-active-border-color: #389621;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #48C02A;
+    --bs-btn-disabled-border-color: #48C02A
+}
+
+.btn-info {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #100ceb;
+    --bs-btn-border-color: #100ceb;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #0e0ac7;
+    --bs-btn-hover-border-color: #0d0aba;
+    --bs-btn-focus-shadow-rgb: 11, 172, 204;
+    --bs-btn-active-color: #000;
+    --bs-btn-active-bg: #0e0ac7;
+    --bs-btn-active-border-color: #0d0aba;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #000;
+    --bs-btn-disabled-bg: #100ceb;
+    --bs-btn-disabled-border-color: #100ceb
+}
+
+.btn-warning {
+    --bs-btn-color: #212529;
+    --bs-btn-bg: #EACA0C;
+    --bs-btn-border-color: #EACA0C;
+    --bs-btn-hover-color: #212529;
+    --bs-btn-hover-bg: #c6ab0a;
+    --bs-btn-hover-border-color: #b9a00a;
+    --bs-btn-focus-shadow-rgb: 217, 164, 6;
+    --bs-btn-active-color: #212529;
+    --bs-btn-active-bg: #c6ab0a;
+    --bs-btn-active-border-color: #b9a00a;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #212529;
+    --bs-btn-disabled-bg: #EACA0C;
+    --bs-btn-disabled-border-color: #EACA0C
+}
+
+.btn-danger {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #EA0C2C;
+    --bs-btn-border-color: #EA0C2C;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #c60a25;
+    --bs-btn-hover-border-color: #b90a23;
+    --bs-btn-focus-shadow-rgb: 225, 83, 97;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #c60a25;
+    --bs-btn-active-border-color: #b90a23;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #EA0C2C;
+    --bs-btn-disabled-border-color: #EA0C2C
+}
+
+.card-header-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-flow: row wrap;
+}
+
+dl.dl-horizontal dt {
+  float: left;
+  letter-spacing: .05em;
+  font-weight: bold;
+  width: 10rem !important;
+  text-align: right;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  clear: left;
+  white-space: nowrap;
+}
+
+dl.dl-horizontal dd {
+  margin-left: 10rem !important;
+  padding-left: .75rem;
+}

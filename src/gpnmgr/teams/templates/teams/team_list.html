@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="card mb-3 my-3">
+        <div class="card-header card-header-buttons">
+            <h5>{{ title }}</h5>
+            <div>
+                {% if perms.teams.manage_teams %}
+                    <a class="btn btn-success" href="#" data-bs-toggle="modal" data-bs-target="#addTeamModal"><span
+                            class="fa-fw fa-solid fa-plus"></span></a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="card-body table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col" class="col-1">{% trans 'Abbreviation' %}</th>
+                    <th scope="col" class="col-2">{% trans 'Name' %}</th>
+                    <th scope="col" class="col-1">{% trans 'Cost Center' %}</th>
+                    <th scope="col" class="col-2">{% trans 'Primary contact' %}</th>
+                    <th scope="col" class="col-2">{% trans 'LDAP Name' %}</th>
+                    <th scope="col" class="col-1">{% trans 'Members' %}</th>
+                    <th scope="col" class="col-1"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for object in object_list %}
+                    <tr>
+                        <td>{{ object.slug }}</td>
+                        <td>{{ object.name }}</td>
+                        <td>{{ object.cost_center|default_if_none:'-' }}</td>
+                        <td>{{ object.primary_contact|default_if_none:'-' }}</td>
+                        <td>{{ object.ldap_name|default_if_none:'-' }}</td>
+                        <td>{{ object.member_count }}</td>
+                        <td>
+                            <a class="text-info" href="{% url 'team_detail' object.pk %}"><span
+                                    class="fa-fw fa-solid fa-eye"></span></a>
+                            {% if perms.teams.manage_teams %}
+                                <a class="text-primary team-modify-button" href="#" data-id="{{ object.pk }}"
+                                   data-url="{% url 'team_edit' object.pk %}"><span
+                                        class="fa-fw fa-solid fa-pencil"></span></a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+{% block modals %}
+    {% if perms.teams.manage_teams %}
+        {% include 'teams/team_create.html' %}
+        <div id="modifyTeamModalWrapper"></div>
+    {% endif %}
+{% endblock %}
+{% block javascript %}
+    {% if perms.teams.manage_teams %}
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                modalSubmitHandler('addTeamModal');
+                modalResetHandler('addTeamModal');
+            });
+        </script>
+    {% endif %}
+
+    {% if perms.teams.manage_teams %}
+        <!-- Dynamically include modification modal -->
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const modalWrapper = document.querySelector('#modifyTeamModalWrapper')
+
+                // Handle click on Edit buttons
+                document.querySelectorAll('.team-modify-button').forEach(btn => {
+                    btn.addEventListener('click', async () => {
+                        const url = btn.dataset.url;
+
+                        // Fetch the form via XHR
+                        const response = await fetch(url, {
+                            headers: {'X-Requested-With': 'XMLHttpRequest'}
+                        });
+
+                        // Fill modal wrapper with form
+                        modalWrapper.innerHTML = await response.text();
+                        const modalEl = document.querySelector('#modifyTeamModal');
+                        const modalInstance = new bootstrap.Modal(modalEl);
+
+                        modalSubmitHandler('modifyTeamModal');
+                        modalResetHandler('modifyTeamModal');
+
+                        // Show modal
+                        modalInstance.show();
+                    });
+                });
+            });
+        </script>
+    {% endif %}
+{% endblock %}

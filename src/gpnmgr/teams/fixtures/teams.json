@@ -1,0 +1,70 @@
+[
+  {
+    "model": "teams.team",
+    "pk": "32ae6437-e1a5-43be-b16a-241f417bd06f",
+    "fields": {
+      "created_at": "2025-10-31T20:03:47.843Z",
+      "updated_at": "2025-10-31T20:03:47.843Z",
+      "name": "Kunst Operations Zentrale",
+      "slug": "KOZ",
+      "cost_center": null,
+      "primary_contact": "/madonius",
+      "admins": []
+    }
+  },
+  {
+    "model": "teams.team",
+    "pk": "3e434a01-1ba9-4270-a5c6-090093f286f1",
+    "fields": {
+      "created_at": "2025-10-31T20:05:12.387Z",
+      "updated_at": "2025-10-31T20:05:12.387Z",
+      "name": "Küche",
+      "slug": "kueche",
+      "cost_center": "40001",
+      "primary_contact": null,
+      "admins": []
+    }
+  },
+  {
+    "model": "teams.team",
+    "pk": "723fcef5-5f70-4651-b346-59deb382d300",
+    "fields": {
+      "created_at": "2025-10-31T20:07:03.910Z",
+      "updated_at": "2025-10-31T20:07:03.910Z",
+      "name": "Payment und Bargeld",
+      "slug": "GELD",
+      "cost_center": null,
+      "primary_contact": "DECT GELD",
+      "admins": []
+    }
+  },
+  {
+    "model": "teams.team",
+    "pk": "a02d4fe8-08d5-4419-9fbd-677d4e139559",
+    "fields": {
+      "created_at": "2025-10-31T20:05:39.705Z",
+      "updated_at": "2025-10-31T20:05:39.705Z",
+      "name": "Bar",
+      "slug": "BAR",
+      "cost_center": "40002",
+      "primary_contact": null,
+      "admins": []
+    }
+  },
+  {
+    "model": "teams.team",
+    "pk": "ffef8d5e-a254-450d-9d15-cb940d218d29",
+    "fields": {
+      "created_at": "2025-10-31T20:03:04.714Z",
+      "updated_at": "2025-11-02T13:39:08.994Z",
+      "name": "Projektleitung",
+      "slug": "PL",
+      "cost_center": null,
+      "primary_contact": "0721 / 0815 2342",
+      "admins": [
+        1,
+        2
+      ]
+    }
+  }
+]

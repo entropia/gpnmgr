@@ -1,0 +1,38 @@
+<div class="modal fade" id="modifyTeamModal" tabindex="-1" aria-labelledby="modifyTeamModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" id="modifyTeamModalContent">
+            <form method="post" action="{% url 'team_edit' object.pk %}" id="modifyTeamModalForm"
+                  autocomplete="off">{% csrf_token %}
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modifyTeamModalLabel">{% trans 'Modify team' %}</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="{% trans 'Close' %}"></button>
+                </div>
+                <div class="modal-body row gx-3 gy-0">
+                    {% bootstrap_form_errors modify_form layout='inline' type='non_fields' %}
+                    <div class="col-md-12">
+                        {% bootstrap_field modify_form.name %}
+                    </div>
+                    <div class="col-md-12">
+                        {% bootstrap_field modify_form.slug %}
+                    </div>
+                    <div class="col-md-12">
+                        {% bootstrap_field modify_form.cost_center %}
+                    </div>
+                    <div class="col-md-12">
+                        {% bootstrap_field modify_form.primary_contact %}
+                    </div>
+                    <div class="col-md-12">
+                        {% bootstrap_field modify_form.ldap_name %}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal">{% trans 'Close' %}</button>
+                    <button type="button" id="modifyTeamModalReset" class="btn btn-danger">{% trans 'Reset' %}</button>
+                    <button type="submit" class="btn btn-info">{% trans 'Modify' %}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

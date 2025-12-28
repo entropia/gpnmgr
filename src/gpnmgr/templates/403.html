@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>{% trans 'You should not be here' %}!</h2>
+    <p>{% trans "You don't have access to this page" %}.</p>
+    <p>{% trans 'Return to the' %} <a href="/">{% trans 'home page' %}</a>.</p>
+{% endblock %}

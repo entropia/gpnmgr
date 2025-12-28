@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="card mb-3 my-3">
+            <div class="card-header card-header-buttons">
+            <h5>{% trans 'Logs' %}</h5>
+        </div>
+        <div class="card-body table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col" class="col-2">{% trans 'Timestamp' %}</th>
+                    <th scope="col" class="col-1">{% trans 'User' %}</th>
+                    <th scope="col" class="col-2">{% trans 'Object type' %}</th>
+                    <th scope="col" class="col-3">{% trans 'Object' %}</th>
+                    <th scope="col" class="col-4">{% trans 'Change' %}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for object in object_list %}
+                    {% if 'admins' not in object.changes and 'members' not in object.changes %}
+                    <tr>
+                        <td>{{ object.timestamp }}</td>
+                        <td>{{ object.actor }}</td>
+                        <td>{{ object.content_type }}</td>
+                        <td>{{ object|capfirst }}</td>
+                        <td>{{ object.changes_str|changelog }}</td>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
