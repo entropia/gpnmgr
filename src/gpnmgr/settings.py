@@ -205,10 +205,10 @@ try:
 except ImportError:
     pass
 
-from ldap3 import Server, Connection, ALL, SAFE_RESTARTABLE
+from ldap3 import Server, Connection, ALL, SAFE_RESTARTABLE, AUTO_BIND_NONE
 
 server = Server(LDAP_BIND_URL, get_info=ALL)
-LDAP_CONNECTION = Connection(server, LDAP_BIND_DN, LDAP_BIND_PASSWORD, auto_bind=True)
+LDAP_CONNECTION = Connection(server, LDAP_BIND_DN, LDAP_BIND_PASSWORD, auto_bind=AUTO_BIND_NONE)
 
 from .permissions import permissions
 PERMISSIONS = permissions

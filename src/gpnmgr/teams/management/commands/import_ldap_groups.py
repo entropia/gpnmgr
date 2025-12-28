@@ -17,6 +17,7 @@ class Command(BaseCommand):
         if dry_run:
             print('DRY RUN')
         conn = settings.LDAP_CONNECTION
+        conn.bind()
 
         conn.search(
             search_base=f'{settings.LDAP_GROUP_OU},{settings.LDAP_BASE_DN}',
