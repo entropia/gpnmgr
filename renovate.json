@@ -2,7 +2,8 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended",
-    ":semanticCommitTypeAll(update)"
+    ":semanticCommitTypeAll(update)",
+    "helpers:pinGitHubActionDigests"
   ],
   "enabled": true,
   "packageRules": [
