@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import uuid
 
+from django.conf import settings
 from django.db import models
 from django.db.models import QuerySet
 from django.utils.translation import gettext_lazy as _
@@ -39,9 +40,23 @@ class Team(models.Model):
         return f'{self.name} ({self.slug})'
 
     @property
-    def member_count(self) -> int:
-        return self.members.count()
+    def valid_members(self) -> QuerySet:
+        # Members that are not placeholder
+        return self.members.exclude(object_dn=settings.LDAP_PLACEHOLDER_DN)
+
+    @property
+    def valid_admins(self) -> QuerySet:
+        # Admins that are not placeholder
+        return self.admins.exclude(object_dn=settings.LDAP_PLACEHOLDER_DN)
 
     @property
     def non_admins(self) -> QuerySet:
-        return self.members.exclude(id__in=self.admins.values_list('id', flat=True))
+        return self.valid_members.exclude(id__in=self.valid_admins.values_list('id', flat=True))
+
+    @property
+    def member_count(self) -> int:
+        return self.valid_members.count()
+
+    @property
+    def admin_count(self) -> int:
+        return self.valid_admins.count()

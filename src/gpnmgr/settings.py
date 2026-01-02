@@ -196,6 +196,8 @@ LDAP_GROUP_MEMBER_KEY = os.environ.get('LDAP_GROUP_MEMBER_KEY', 'member')
 LDAP_GROUP_MANAGER_KEY = os.environ.get('LDAP_GROUP_MANAGER_KEY', 'owner')
 LDAP_USER_OBJECT_CLASS = os.environ.get('LDAP_USER_OBJECT_CLASS', 'inetOrgPerson')
 LDAP_GROUP_OBJECT_CLASS = os.environ.get('LDAP_GROUP_OBJECT_CLASS', 'groupOfNames')
+LDAP_PLACEHOLDER_DN = os.environ.get('LDAP_PLACEHOLDER_DN', 'cn=null,dc=example,dc=com')
+LDAP_GROUP_MEMBER_REQUIRED = os.environ.get('LDAP_GROUP_MEMBER_REQUIRED', 'true').lower() in ['true', 'y', 'yes']
 
 try:
     from bootstrap.settings import BOOTSTRAP5

@@ -37,6 +37,7 @@ class Command(BaseCommand):
 
             username = attrs.get(LDAP_USER_PK, [None])[0]
             last_name = attrs.get('sn', [None])[0]
+            object_dn = entry.entry_dn
 
             if not username:
                 print(f'Skipping entry without {LDAP_USER_PK}: {entry.entry_dn}')
@@ -53,6 +54,7 @@ class Command(BaseCommand):
                     defaults={
                         'last_name': last_name or '',
                         'display_name': last_name or None,
+                        'object_dn': object_dn,
                     },
                 )
 
@@ -63,6 +65,7 @@ class Command(BaseCommand):
                 else:
                     user.last_name = last_name or ''
                     user.display_name = last_name or ''
+                    user.object_dn = object_dn
                     user.save()
                     print(f'User already exists: {username}. Synced attributes')
 

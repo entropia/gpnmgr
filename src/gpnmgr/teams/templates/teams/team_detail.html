@@ -42,11 +42,11 @@
                 </div>
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
-                        {% if object.admins.count > 0 %}
+                        {% if object.admin_count > 0 %}
                             <li class="list-group-item list-group-item-dark d-flex justify-content-between align-items-center">
                                 {% trans 'Admins' %}
                             </li>
-                            {% for member in object.admins.all %}
+                            {% for member in object.valid_admins.all %}
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     {{ member }}
                                     <div class="btn-group" role="group">

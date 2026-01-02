@@ -7,28 +7,8 @@ from ldap3 import SUBTREE, MODIFY_ADD, MODIFY_DELETE
 
 from ..models import Team
 from ...accounts.models import User
-from ...settings import LDAP_USER_PK, LDAP_GROUP_MEMBER_KEY, LDAP_GROUP_MANAGER_KEY
+from ...settings import LDAP_GROUP_MEMBER_KEY, LDAP_GROUP_MANAGER_KEY, LDAP_PLACEHOLDER_DN, LDAP_GROUP_MEMBER_REQUIRED
 
-
-def get_user_dns(usernames: list[str]) -> list[str]:
-    conn = settings.LDAP_CONNECTION
-    user_dns = []
-
-    for username in usernames:
-        conn.search(
-            search_base=f'{settings.LDAP_USER_OU},{settings.LDAP_BASE_DN}',
-            search_filter=f'(&(objectClass={settings.LDAP_USER_OBJECT_CLASS})({LDAP_USER_PK}={username}))',
-            search_scope=SUBTREE,
-        )
-
-        if len(conn.entries) == 0:
-            raise IntegrityError(
-                f'There is no user found in LDAP with the name {username}'
-            )
-        user_entries = conn.entries
-        user_dns.append(user_entries[0].entry_dn)
-
-    return user_dns
 
 @receiver(m2m_changed, sender=Team.admins.through)
 def ensure_admin_is_member(sender, instance, action, pk_set, **kwargs):
@@ -67,7 +47,7 @@ def sync_member_change_to_ldap(sender, instance, action, pk_set, **kwargs):
 
     group_dn = group_entries[0].entry_dn
 
-    user_dns = get_user_dns([User.objects.get(pk=pk).username for pk in pk_set])
+    user_dns = list(User.objects.filter(pk__in=pk_set).distinct().values_list('object_dn', flat=True))
 
     if action == "post_add":
         conn.modify(group_dn, {
@@ -76,6 +56,9 @@ def sync_member_change_to_ldap(sender, instance, action, pk_set, **kwargs):
 
 
     if action == "post_remove":
+        if instance.valid_members.count() == 0 and LDAP_GROUP_MEMBER_REQUIRED:
+            instance.members.add(User.objects.get(object_dn=LDAP_PLACEHOLDER_DN))
+            conn.bind()
         conn.modify(group_dn, {
             LDAP_GROUP_MEMBER_KEY: [(MODIFY_DELETE, user_dns)]
         })
@@ -107,13 +90,12 @@ def sync_admin_change_to_ldap(sender, instance, action, pk_set, **kwargs):
 
     group_dn = group_entries[0].entry_dn
 
-    user_dns = get_user_dns([User.objects.get(pk=pk).username for pk in pk_set])
+    user_dns = list(User.objects.filter(pk__in=pk_set).distinct().values_list('object_dn', flat=True))
 
     if action == "post_add":
         conn.modify(group_dn, {
             LDAP_GROUP_MANAGER_KEY: [(MODIFY_ADD, user_dns)]
         })
-
 
     if action == "post_remove":
         conn.modify(group_dn, {

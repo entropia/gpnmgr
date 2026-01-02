@@ -26,6 +26,7 @@ class BaseUser(AbstractUser):
 
 class User(BaseUser):
     display_name = models.CharField(max_length=150, verbose_name=_('Display name'), null=True, blank=True)
+    object_dn = models.CharField(max_length=150, verbose_name=_('LDAP DN'), null=True, blank=True)
 
     class Meta:
         default_permissions = ()
