@@ -12,7 +12,6 @@ from ...settings import LDAP_USER_PK, LDAP_GROUP_MEMBER_KEY, LDAP_GROUP_MANAGER_
 
 def get_user_dns(usernames: list[str]) -> list[str]:
     conn = settings.LDAP_CONNECTION
-    conn.bind()
     user_dns = []
 
     for username in usernames:
@@ -29,7 +28,6 @@ def get_user_dns(usernames: list[str]) -> list[str]:
         user_entries = conn.entries
         user_dns.append(user_entries[0].entry_dn)
 
-    conn.unbind()
     return user_dns
 
 @receiver(m2m_changed, sender=Team.admins.through)

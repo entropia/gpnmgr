@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-taz^x!e%_-p^!37-@a_8&&%ihj66+v!fi2!h(m1jof)-t5i*qi"
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-taz^x!e%_-p^!37-@a_8&&%ihj66+v!fi2!h(m1jof)-t5i*qi')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -201,7 +201,7 @@ try:
     from bootstrap.settings import BOOTSTRAP5
 
     # try to load local settings (for production settings or rpc passwords)
-    from .local_settings import *
+    from local_settings import *
 except ImportError:
     pass
 
