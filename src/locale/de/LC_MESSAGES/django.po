@@ -1,0 +1,328 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-03 00:38+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: gpnmgr/accounts/models/user.py:28
+msgid "Display name"
+msgstr "Anzeigename"
+
+#: gpnmgr/accounts/models/user.py:29
+msgid "LDAP DN"
+msgstr "LDAP DN"
+
+#: gpnmgr/accounts/templates/accounts/user_detail.html:4
+msgid "Profile"
+msgstr "Profil"
+
+#: gpnmgr/accounts/templates/landing_page.html:3
+msgid "accounts.landing_page.title"
+msgstr ""
+
+#: gpnmgr/accounts/views/auth.py:25 gpnmgr/templates/top_nav.html:60
+msgid "Login"
+msgstr "Login"
+
+#: gpnmgr/accounts/views/auth.py:53
+msgid "Error while creating the user instance!"
+msgstr "Fehler beim Erstellen vom Benutzerobjekt!"
+
+#: gpnmgr/accounts/views/auth.py:57
+msgid "Successfully logged in!"
+msgstr "Erfolgreich eingeloggt!"
+
+#: gpnmgr/accounts/views/auth.py:60
+#, python-format
+msgid "Error while trying to authenticate with sso! %(message)s"
+msgstr "Fehler bei der Anmeldung via SSO! %(message)s"
+
+#: gpnmgr/accounts/views/landing_page.py:6
+msgid "Start"
+msgstr "Start"
+
+#: gpnmgr/accounts/views/profile.py:13
+msgid "My account"
+msgstr "Mein account"
+
+#: gpnmgr/log/templates/log/log_list.html:5
+msgid "Logs"
+msgstr "Logs"
+
+#: gpnmgr/log/templates/log/log_list.html:11
+msgid "Timestamp"
+msgstr "Zeitstempel"
+
+#: gpnmgr/log/templates/log/log_list.html:12
+msgid "User"
+msgstr "Benutzer"
+
+#: gpnmgr/log/templates/log/log_list.html:13
+msgid "Object type"
+msgstr "Objekttyp"
+
+#: gpnmgr/log/templates/log/log_list.html:14
+msgid "Object"
+msgstr "Objekt"
+
+#: gpnmgr/log/templates/log/log_list.html:15
+msgid "Change"
+msgstr "Änderung"
+
+#: gpnmgr/log/views/log.py:11 gpnmgr/templates/top_nav.html:30
+msgid "Auditlog"
+msgstr "Änderungslog"
+
+#: gpnmgr/settings.py:145
+msgid "German"
+msgstr "Deutsch"
+
+#: gpnmgr/settings.py:146
+msgid "English"
+msgstr "Englisch"
+
+#: gpnmgr/teams/forms/add_member_form.py:18
+msgid "Enter users to add"
+msgstr "Benutzer zum Hinzufügen eintragen"
+
+#: gpnmgr/teams/forms/add_member_form.py:47
+#, python-format
+msgid "The provided usernames %(invalid_users)s are invalid."
+msgstr "Die angegebenen Benutzernamen %(invalid_users)s sind ungültig."
+
+#: gpnmgr/teams/management/commands/import_ldap_groups.py:44
+#, python-format
+msgid "Handling group %(group)s"
+msgstr "Verarbeite Gruppe %(group)s"
+
+#: gpnmgr/teams/management/commands/import_ldap_groups.py:54
+msgid "Created team"
+msgstr "Team angelegt"
+
+#: gpnmgr/teams/management/commands/import_ldap_groups.py:58
+msgid "Team not existing, would create"
+msgstr "Team existiert nicht; würde erstellt werden"
+
+#: gpnmgr/teams/management/commands/import_ldap_groups.py:60
+msgid "Syncing"
+msgstr "Synchronisiere"
+
+#: gpnmgr/teams/models/team.py:19
+#: gpnmgr/teams/templates/teams/team_detail.html:19
+#: gpnmgr/teams/templates/teams/team_list.html:18
+msgid "Name"
+msgstr "Name"
+
+#: gpnmgr/teams/models/team.py:20
+#: gpnmgr/teams/templates/teams/team_detail.html:17
+#: gpnmgr/teams/templates/teams/team_list.html:17
+msgid "Abbreviation"
+msgstr "Kürzel"
+
+#: gpnmgr/teams/models/team.py:21
+#: gpnmgr/teams/templates/teams/team_detail.html:21
+#: gpnmgr/teams/templates/teams/team_list.html:19
+msgid "Cost Center"
+msgstr "Kostenstelle"
+
+#: gpnmgr/teams/models/team.py:22
+#: gpnmgr/teams/templates/teams/team_detail.html:23
+#: gpnmgr/teams/templates/teams/team_list.html:20
+msgid "Primary contact"
+msgstr "Primärer Kontakt"
+
+#: gpnmgr/teams/models/team.py:24
+#: gpnmgr/teams/templates/teams/team_detail.html:25
+#: gpnmgr/teams/templates/teams/team_list.html:21
+msgid "LDAP Name"
+msgstr "LDAP Name"
+
+#: gpnmgr/teams/models/team.py:26
+msgid "Administrators"
+msgstr "Administratoren"
+
+#: gpnmgr/teams/models/team.py:27
+#: gpnmgr/teams/templates/teams/team_detail.html:34
+#: gpnmgr/teams/templates/teams/team_detail.html:65
+#: gpnmgr/teams/templates/teams/team_list.html:22
+msgid "Members"
+msgstr "Mitglieder"
+
+#: gpnmgr/teams/models/team.py:32
+#: gpnmgr/teams/templates/teams/team_detail.html:7
+#: gpnmgr/teams/views/teams.py:120
+msgid "Team"
+msgstr "Team"
+
+#: gpnmgr/teams/models/team.py:33 gpnmgr/teams/views/teams.py:103
+msgid "Teams"
+msgstr "Teams"
+
+#: gpnmgr/teams/templates/teams/team_create.html:7
+#: gpnmgr/teams/templates/teams/team_create.html:34
+msgid "Create team"
+msgstr "Erstelle Team"
+
+#: gpnmgr/teams/templates/teams/team_create.html:9
+#: gpnmgr/teams/templates/teams/team_create.html:31
+#: gpnmgr/teams/templates/teams/team_detail.html:103
+#: gpnmgr/teams/templates/teams/team_detail.html:107
+#: gpnmgr/teams/templates/teams/team_detail.html:124
+#: gpnmgr/teams/templates/teams/team_detail.html:128
+#: gpnmgr/teams/templates/teams/team_detail.html:150
+#: gpnmgr/teams/templates/teams/team_detail.html:154
+#: gpnmgr/teams/templates/teams/team_member_add.html:10
+#: gpnmgr/teams/templates/teams/team_member_add.html:27
+#: gpnmgr/teams/templates/teams/team_modify.html:9
+#: gpnmgr/teams/templates/teams/team_modify.html:31
+msgid "Close"
+msgstr "Schließen"
+
+#: gpnmgr/teams/templates/teams/team_create.html:33
+#: gpnmgr/teams/templates/teams/team_member_add.html:29
+#: gpnmgr/teams/templates/teams/team_modify.html:32
+msgid "Reset"
+msgstr "Reset"
+
+#: gpnmgr/teams/templates/teams/team_detail.html:47
+#: gpnmgr/teams/templates/teams/team_list.html:23
+msgid "Admins"
+msgstr "Admins"
+
+#: gpnmgr/teams/templates/teams/team_detail.html:101
+#, python-format
+msgid "Do you really want to promote %(member)s?"
+msgstr "Möchtest du wirklich %(member)s hochstufen?"
+
+#: gpnmgr/teams/templates/teams/team_detail.html:109
+msgid "Promote"
+msgstr "Hochstufen"
+
+#: gpnmgr/teams/templates/teams/team_detail.html:122
+#, python-format
+msgid "Do you really want to demote %(member)s?"
+msgstr "Möchtest du wirklich %(member)s herabstufen?"
+
+#: gpnmgr/teams/templates/teams/team_detail.html:130
+msgid "Demote"
+msgstr "Herabstufen"
+
+#: gpnmgr/teams/templates/teams/team_detail.html:148
+#, python-format
+msgid "Do you really want to remove %(member)s?"
+msgstr "Möchtest du wirklich %(member)s entfernen?"
+
+#: gpnmgr/teams/templates/teams/team_detail.html:156
+msgid "Remove"
+msgstr "Entfernen"
+
+#: gpnmgr/teams/templates/teams/team_member_add.html:8
+msgid "Add member"
+msgstr "Mitglied hinzufügen"
+
+#: gpnmgr/teams/templates/teams/team_member_add.html:30
+msgid "Add"
+msgstr "Hinzufügen"
+
+#: gpnmgr/teams/templates/teams/team_modify.html:7
+msgid "Modify team"
+msgstr "Team bearbeiten"
+
+#: gpnmgr/teams/templates/teams/team_modify.html:33
+msgid "Modify"
+msgstr "Bearbeiten"
+
+#: gpnmgr/teams/views/teams.py:162
+#, python-format
+msgid "Successfully added %(member)s to team"
+msgstr "Erfolgreich %(member)s zum Team hinzugefügt"
+
+#: gpnmgr/teams/views/teams.py:188
+#, python-format
+msgid "You don't have permissions to remove admin %(user)s from team"
+msgstr ""
+"Du hast keine Berechtigungen um den Admin %(user)s aus dem Team zu entfernen"
+
+#: gpnmgr/teams/views/teams.py:192
+#, python-format
+msgid "Successfully removed %(user)s"
+msgstr "%(user)s erfolgreich entfernt"
+
+#: gpnmgr/teams/views/teams.py:196
+#, python-format
+msgid "%(user)s was not a member of the team"
+msgstr "%(user)s war kein Mitglied des Teams"
+
+#: gpnmgr/teams/views/teams.py:215
+#, python-format
+msgid "%(user)s is already admin of the team"
+msgstr "%(user)s ist bereits Admin des Teams"
+
+#: gpnmgr/teams/views/teams.py:224
+#, python-format
+msgid "Successfully promoted %(user)s"
+msgstr "%(user)s erfolgreich hochgestuft"
+
+#: gpnmgr/teams/views/teams.py:229
+#, python-format
+msgid "%(user)s is not a member of the team"
+msgstr "%(user)s ist kein Mitglied des Teams"
+
+#: gpnmgr/teams/views/teams.py:245
+#, python-format
+msgid "Successfully demoted %(user)s"
+msgstr "%(user)s erfolgreich herabgestuft"
+
+#: gpnmgr/templates/403.html:3
+msgid "You should not be here"
+msgstr "Du solltest nicht hier sein"
+
+#: gpnmgr/templates/403.html:4
+msgid "You don't have access to this page"
+msgstr "Du hast keinen Zugriff auf diese Seite"
+
+#: gpnmgr/templates/403.html:5 gpnmgr/templates/404.html:5
+msgid "Return to the"
+msgstr "Zurück zur"
+
+#: gpnmgr/templates/403.html:5 gpnmgr/templates/404.html:5
+msgid "home page"
+msgstr "Startseite"
+
+#: gpnmgr/templates/404.html:3
+msgid "Not found"
+msgstr "Nicht gefunden"
+
+#: gpnmgr/templates/404.html:4
+msgid "There is nothing here."
+msgstr "Hier gibt es nichts."
+
+#: gpnmgr/templates/top_nav.html:5
+msgid "Team-Management"
+msgstr "Teamverwaltung"
+
+#: gpnmgr/templates/top_nav.html:18
+msgid "List teams"
+msgstr "Teams anzeigen"
+
+#: gpnmgr/templates/top_nav.html:24
+msgid "Mastodon accounts"
+msgstr "Mastodon Accounts"
+
+#: gpnmgr/templates/top_nav.html:42
+msgid "Language selector"
+msgstr "Sprachauswahl"

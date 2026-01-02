@@ -44,6 +44,8 @@ class TeamMemberAddForm(ModelForm):
         cleaned_data['members'] = members
 
         if len(invalid_users) > 0:
-            raise ValidationError(_(f'The provided usernames "{", ".join(invalid_users)}" are invalid.'))
+            raise ValidationError(_('The provided usernames %(invalid_users)s are invalid.' % {
+                'invalid_users': ', '.join(invalid_users),
+            }))
 
         return cleaned_data
