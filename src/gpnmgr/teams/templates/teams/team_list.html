@@ -20,6 +20,7 @@
                     <th scope="col" class="col-2">{% trans 'Primary contact' %}</th>
                     <th scope="col" class="col-2">{% trans 'LDAP Name' %}</th>
                     <th scope="col" class="col-1">{% trans 'Members' %}</th>
+                    <th scope="col" class="col-1">{% trans 'Admins' %}</th>
                     <th scope="col" class="col-1"></th>
                 </tr>
                 </thead>
@@ -32,6 +33,7 @@
                         <td>{{ object.primary_contact|default_if_none:'-' }}</td>
                         <td>{{ object.ldap_name|default_if_none:'-' }}</td>
                         <td>{{ object.member_count }}</td>
+                        <td>{{ object.admin_count }}</td>
                         <td>
                             <a class="text-info" href="{% url 'team_detail' object.pk %}"><span
                                     class="fa-fw fa-solid fa-eye"></span></a>
