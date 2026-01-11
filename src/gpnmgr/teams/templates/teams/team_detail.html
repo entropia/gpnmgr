@@ -89,7 +89,7 @@
     </div>
 {% endblock %}
 {% block modals %}
-    {% if perms.teams.manage_teams %}
+    {% if is_team_admin %}
         {% include 'teams/team_modify.html' %}
         {% for member in object.non_admins.all %}
             <div class="modal fade" id="confirmPromotionModal{{ member.pk }}" tabindex="-1"

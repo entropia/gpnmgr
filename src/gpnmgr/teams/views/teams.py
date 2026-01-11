@@ -55,7 +55,6 @@ class TeamModifyView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Team
     object: Team
     # TODO: Add permission denied message to AJAX response
-    permission_required = 'teams.manage_teams'
     success_url = reverse_lazy('teams_list')
     template_name = 'teams/team_modify.html'
     http_method_names = ('get', 'post', )
@@ -72,7 +71,7 @@ class TeamModifyView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
         form.fields['slug'].required = False
         form.fields['cost_center'].required = False
         form.fields['primary_contact'].required = False
-        if self.object.ldap_name is not None:
+        if self.object.ldap_name is not None or not self.request.user.has_perm('teams.manage_teams'):
             form.fields['ldap_name'].disabled = True
         else:
             form.fields['ldap_name'].required = False
@@ -89,6 +88,11 @@ class TeamModifyView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
         if self.request.headers.get('x-requested-with') == 'XMLHttpRequest':
             return JsonResponse({'success': True})
         return super().form_valid(form)
+
+    def has_permission(self):
+        if self.request.user in get_object_or_404(Team, pk=self.kwargs.get('pk')).admins.all():
+            return True
+        return self.request.user.has_perm('teams.manage_teams')
 
 class TeamListView(LoginRequiredMixin, ListView):
     model = Team
