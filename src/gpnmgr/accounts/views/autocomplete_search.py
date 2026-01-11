@@ -32,4 +32,6 @@ class UserSearchView(LoginRequiredMixin, PermissionRequiredMixin, View):
     def has_permission(self):
         if self.request.user.team_admins.count() > 0:
             return True
+        if self.request.user.mastodon.count() > 0:
+            return True
         return self.request.user.has_perm('teams.manage_teams')
