@@ -17,7 +17,7 @@
                 </thead>
                 <tbody>
                 {% for object in object_list %}
-                    {% if 'admins' not in object.changes and 'members' not in object.changes %}
+                    {% if 'admins' not in object.changes and 'members' not in object.changes and 'users' not in object.changes %}
                     <tr>
                         <td>{{ object.timestamp }}</td>
                         <td>{{ object.actor }}</td>

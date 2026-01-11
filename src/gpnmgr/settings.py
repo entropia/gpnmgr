@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "bootstrap",
     "django_bootstrap5",
     "gpnmgr.accounts",
+    "gpnmgr.mastodon",
     "gpnmgr.teams",
     "gpnmgr.log"
 ]
@@ -198,6 +199,10 @@ LDAP_USER_OBJECT_CLASS = os.environ.get('LDAP_USER_OBJECT_CLASS', 'inetOrgPerson
 LDAP_GROUP_OBJECT_CLASS = os.environ.get('LDAP_GROUP_OBJECT_CLASS', 'groupOfNames')
 LDAP_PLACEHOLDER_DN = os.environ.get('LDAP_PLACEHOLDER_DN', 'cn=null,dc=example,dc=com')
 LDAP_GROUP_MEMBER_REQUIRED = os.environ.get('LDAP_GROUP_MEMBER_REQUIRED', 'true').lower() in ['true', 'y', 'yes']
+
+MASTODON_BASE = os.environ.get('MASTODON_BASE', '@example.com')
+LDAP_MASTODON_OBJECT_CLASS = os.environ.get('LDAP_MASTODON_OBJECT_CLASS', 'gulaschCrew')
+LDAP_MASTODON_KEY = os.environ.get('LDAP_MASTODON_KEY', 'gulaschOperationCenter')
 
 try:
     from bootstrap.settings import BOOTSTRAP5

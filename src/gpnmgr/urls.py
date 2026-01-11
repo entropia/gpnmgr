@@ -25,6 +25,7 @@ from gpnmgr.accounts.views.landing_page import LandingPageView
 urlpatterns: List[Any] = [
     path('', LandingPageView.as_view(), name='landing_page'),
     path('teams/', include('gpnmgr.teams.urls')),
+    path('mastodon/', include('gpnmgr.mastodon.urls')),
     path('log/', include('gpnmgr.log.urls')),
     path('user/', include('gpnmgr.accounts.urls')),
     path('i18n/', include('django.conf.urls.i18n')),

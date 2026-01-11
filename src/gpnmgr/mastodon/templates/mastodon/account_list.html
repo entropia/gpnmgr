@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="card mb-3 my-3">
+        <div class="card-header card-header-buttons">
+            <h5>{{ title }}</h5>
+            <div>
+                {% if perms.mastodon.manage_accounts %}
+                    <a class="btn btn-success" href="#" data-bs-toggle="modal" data-bs-target="#addMastodonAccountModal"><span
+                            class="fa-fw fa-solid fa-plus"></span></a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="card-body table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col" class="col-2">{% trans 'Name' %}</th>
+                    <th scope="col" class="col-4">{% trans 'Description' %}</th>
+                    <th scope="col" class="col-1">{% trans 'Users' %}</th>
+                    <th scope="col" class="col-1"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for object in object_list %}
+                    <tr>
+                        <td>{{ object.name }}</td>
+                        <td>{{ object.description|default_if_none:'-' }}</td>
+                        <td>{{ object.user_count }}</td>
+                        <td>
+                            <a class="text-info" href="{% url 'mastodon_detail' object.pk %}"><span
+                                    class="fa-fw fa-solid fa-eye"></span></a>
+                            {% if perms.mastodon.manage_accounts %}
+                                <a class="text-primary mastodon-modify-button" href="#" data-id="{{ object.pk }}"
+                                   data-url="{% url 'mastodon_edit' object.pk %}"><span
+                                        class="fa-fw fa-solid fa-pencil"></span></a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+{% block modals %}
+    {% if perms.mastodon.manage_accounts %}
+        {% include 'mastodon/account_create.html' %}
+        <div id="modifyMastodonAccountModalWrapper"></div>
+    {% endif %}
+{% endblock %}
+{% block javascript %}
+    {% if perms.mastodon.manage_accounts %}
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                modalSubmitHandler('addMastodonAccountModal');
+                modalResetHandler('addMastodonAccountModal');
+            });
+        </script>
+    {% endif %}
+
+    {% if perms.mastodon.manage_accounts %}
+        <!-- Dynamically include modification modal -->
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const modalWrapper = document.querySelector('#modifyMastodonAccountModalWrapper')
+
+                // Handle click on Edit buttons
+                document.querySelectorAll('.mastodon-modify-button').forEach(btn => {
+                    btn.addEventListener('click', async () => {
+                        const url = btn.dataset.url;
+
+                        // Fetch the form via XHR
+                        const response = await fetch(url, {
+                            headers: {'X-Requested-With': 'XMLHttpRequest'}
+                        });
+
+                        // Fill modal wrapper with form
+                        modalWrapper.innerHTML = await response.text();
+                        const modalEl = document.querySelector('#modifyMastodonAccountModal');
+                        const modalInstance = new bootstrap.Modal(modalEl);
+
+                        modalSubmitHandler('modifyMastodonAccountModal');
+                        modalResetHandler('modifyMastodonAccountModal');
+
+                        // Show modal
+                        modalInstance.show();
+                    });
+                });
+            });
+        </script>
+    {% endif %}
+{% endblock %}

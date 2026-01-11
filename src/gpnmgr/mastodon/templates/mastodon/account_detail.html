@@ -1,0 +1,239 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="row row-cols-1 row-cols-md-2 g-2 my-3" data-masonry='{"percentPosition": true }'>
+        <div class="col">
+            <div class="card">
+                <div class="card-header card-header-buttons">
+                    <h5>{% trans 'Account' %} {{ object }}</h5>
+                    <div>
+                        {% if perms.mastodon.manage_accounts %}
+                            <a class="text-primary" href="#" data-bs-toggle="modal"
+                               data-bs-target="#modifyMastodonAccountModal"><span class="fa-fw fa-solid fa-pencil"></span></a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="card-body">
+                    <dl class="dl-horizontal">
+                        <dt>{% trans 'Name' %}</dt>
+                        <dd>{{ object.name }}</dd>
+                        <dt>{% trans 'Description' %}</dt>
+                        <dd>{{ object.description|default_if_none:'-' }}</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-header card-header-buttons">
+                    <h5>{% trans 'Users' %}</h5>
+                    {% if is_account_user %}
+                        <div>
+                            <a class="text-primary" href="#" data-bs-toggle="modal"
+                               data-bs-target="#addAccountUserModal"><span
+                                    class="fa-fw fa-solid fa-user-plus"></span></a>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        {% for user in object.users.all %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                {{ user }}
+                                <div class="btn-group" role="group">
+                                    {% if is_account_user %}
+                                        <a class="badge btn btn-danger" href="#" data-bs-toggle="modal"
+                                           data-bs-target="#confirmDeleteModal{{ user.pk }}"><span
+                                                class="fa-solid fa-user-minus"></span></a>
+                                    {% endif %}
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block modals %}
+    {% if is_account_user %}
+        {% include 'mastodon/account_modify.html' %}
+        {% include 'mastodon/account_user_add.html' %}
+    {% endif %}
+    {% if is_account_user %}
+        {% for user in object.users.all %}
+            <div class="modal fade" id="confirmDeleteModal{{ user.pk }}" tabindex="-1"
+                 aria-labelledby="confirmDeleteModal{{ user.pk }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5"
+                                id="confirmDeleteModal{{ user.pk }}Label">{% blocktrans %}Do you really want to remove {{ user }}?{% endblocktrans %}</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="{% trans 'Close' %}"></button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">{% trans 'Close' %}</button>
+                            <a class="btn btn-danger"
+                               href="{% url 'mastodon_user_remove' object.pk user.pk %}">{% trans 'Remove' %}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+{% block javascript %}
+    {% if is_account_user %}
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                modalSubmitHandler('modifyMastodonAccountModal');
+                modalResetHandler('modifyMastodonAccountModal');
+            });
+        </script>
+        <script>
+            function addUserHandler() {
+                const input = document.querySelector('#id_user_input');
+                const resultsMenu = document.querySelector('#user-add-search-results');
+                const selectedContainer = document.querySelector('#user-add-selected-items');
+                const hiddenInput = document.querySelector('#id_users');
+
+                const dropdown = new bootstrap.Dropdown(input, {
+                    autoClose: true
+                });
+                dropdown._menu = resultsMenu
+
+                let debounceTimeout = null;
+                const selectedItems = new Map(); // username -> display_name
+                let highlightedIndex = -1;
+
+                function updateHiddenInput() {
+                    hiddenInput.value = Array.from(selectedItems.keys()).join(',');
+                }
+
+                function highlightItem(index) {
+                    const items = Array.from(resultsMenu.querySelectorAll('.dropdown-item'));
+                    items.forEach((el, i) => el.classList.toggle('active', i === index));
+                }
+
+                function getItems() {
+                    return Array.from(resultsMenu.querySelectorAll('.dropdown-item'));
+                }
+
+                function renderSelectedItems() {
+                    selectedContainer.innerHTML = '';
+
+                    selectedItems.forEach((name, id) => {
+                        const badge = document.createElement('span');
+                        badge.className = 'badge bg-secondary d-flex align-items-center';
+                        badge.textContent = name;
+
+                        const removeBtn = document.createElement('button');
+                        removeBtn.type = 'button';
+                        removeBtn.className = 'btn-close btn-close-white ms-2';
+                        removeBtn.style.fontSize = '0.6rem';
+
+                        removeBtn.addEventListener('click', () => {
+                            selectedItems.delete(id);
+                            renderSelectedItems();
+                            updateHiddenInput();
+                        });
+
+                        badge.appendChild(removeBtn);
+                        selectedContainer.appendChild(badge);
+                    });
+                }
+
+                function clearResults() {
+                    resultsMenu.innerHTML = '';
+                    dropdown.hide();
+                }
+
+                input.addEventListener('input', function () {
+                    const query = input.value.trim();
+
+                    clearResults();
+
+                    if (query.length < 3) {
+                        return;
+                    }
+
+                    clearTimeout(debounceTimeout);
+                    debounceTimeout = setTimeout(() => {
+                        fetch(`/user/search/${encodeURIComponent(query)}/`, {
+                            headers: {'Accept': 'application/json'}
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                clearResults();
+
+                                data.results.forEach(item => {
+                                    if (selectedItems.has(String(item.username))) {
+                                        return;
+                                    }
+
+                                    const li = document.createElement('li');
+                                    const btn = document.createElement('button');
+
+                                    btn.type = 'button';
+                                    btn.className = 'dropdown-item';
+                                    btn.textContent = item.display_name;
+
+                                    btn.addEventListener('click', () => {
+                                        selectedItems.set(String(item.username), item.display_name);
+                                        renderSelectedItems();
+                                        updateHiddenInput();
+                                        input.value = '';
+                                        input.focus();
+                                        clearResults();
+                                    });
+
+                                    li.appendChild(btn);
+                                    resultsMenu.appendChild(li);
+                                });
+
+                                if (resultsMenu.children.length > 0) {
+                                    dropdown.show();
+                                }
+                            })
+                            .catch(clearResults);
+                    }, 300);
+                });
+
+
+                input.addEventListener('keydown', function (e) {
+                    const items = getItems();
+                    if (!items.length) return;
+
+                    if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        highlightedIndex = (highlightedIndex + 1) % items.length;
+                        highlightItem(highlightedIndex);
+                    } else if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        highlightedIndex = (highlightedIndex - 1 + items.length) % items.length;
+                        highlightItem(highlightedIndex);
+                    } else if (e.key === 'Enter') {
+                        if (highlightedIndex >= 0) {
+                            e.preventDefault(); // prevent form submission
+                            items[highlightedIndex].click();
+                        }
+                        if (items.length === 1) {
+                            e.preventDefault(); // prevent form submission
+                            items[0].click();
+                        }
+                    } else if (e.key === 'Escape') {
+                        clearResults();
+                    }
+                });
+
+            }
+
+            document.addEventListener('DOMContentLoaded', () => {
+                modalSubmitHandler('addAccountUserModal', addUserHandler);
+                modalResetHandler('addAccountUserModal', addUserHandler);
+                addUserHandler();
+            });
+        </script>
+    {% endif %}
+{% endblock %}

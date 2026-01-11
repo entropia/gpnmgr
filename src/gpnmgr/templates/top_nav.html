@@ -18,9 +18,9 @@
                         {% trans 'List teams' %}</a>
                 </li>
                 {% endif %}
-                {% if perms.fedi.manage_accounts %}
+                {% if perms.mastodon.manage_accounts %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><span class="fa-fw fa-brands fa-mastodon"></span>
+                        <a class="nav-link" href="{% url 'mastodon_list' %}"><span class="fa-fw fa-brands fa-mastodon"></span>
                             {% trans 'Mastodon accounts' %}</a>
                     </li>
                 {% endif %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-03 00:38+0100\n"
+"POT-Creation-Date: 2026-01-11 15:56+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,7 +32,7 @@ msgstr "Profil"
 
 #: gpnmgr/accounts/templates/landing_page.html:3
 msgid "accounts.landing_page.title"
-msgstr ""
+msgstr "GPN Teamverwaltung"
 
 #: gpnmgr/accounts/views/auth.py:25 gpnmgr/templates/top_nav.html:60
 msgid "Login"
@@ -87,22 +87,195 @@ msgstr "Änderung"
 msgid "Auditlog"
 msgstr "Änderungslog"
 
-#: gpnmgr/settings.py:145
-msgid "German"
-msgstr "Deutsch"
-
-#: gpnmgr/settings.py:146
-msgid "English"
-msgstr "Englisch"
-
+#: gpnmgr/mastodon/forms/add_user_form.py:18
 #: gpnmgr/teams/forms/add_member_form.py:18
 msgid "Enter users to add"
 msgstr "Benutzer zum Hinzufügen eintragen"
 
+#: gpnmgr/mastodon/forms/add_user_form.py:47
 #: gpnmgr/teams/forms/add_member_form.py:47
 #, python-format
 msgid "The provided usernames %(invalid_users)s are invalid."
 msgstr "Die angegebenen Benutzernamen %(invalid_users)s sind ungültig."
+
+#: gpnmgr/mastodon/management/commands/import_mastodon_accounts.py:50
+#, fuzzy, python-format
+#| msgid "Mastodon accounts"
+msgid "Created account %(account)s"
+msgstr "Mastodon Accounts"
+
+#: gpnmgr/mastodon/management/commands/import_mastodon_accounts.py:58
+#, fuzzy, python-format
+#| msgid "Team not existing, would create"
+msgid "Account not existing, would create %(account)s"
+msgstr "Team existiert nicht; würde erstellt werden"
+
+#: gpnmgr/mastodon/management/commands/import_mastodon_accounts.py:63
+#, python-format
+msgid "Clean users of account %(mastodon)s"
+msgstr "Lösche Benutzer des Accounts %(mastodon)s"
+
+#: gpnmgr/mastodon/management/commands/import_mastodon_accounts.py:80
+#, python-format
+msgid "Add %(user)s to account %(account)s"
+msgstr "Füge %(user)s zu Account %(account)s hinzu"
+
+#: gpnmgr/mastodon/management/commands/sync_mastodon_to_ldap.py:18
+#, python-format
+msgid "Syncing users of %(account)s to LDAP"
+msgstr "Synchronisiere Benutzer von %(account)s zum LDAP"
+
+#: gpnmgr/mastodon/management/commands/sync_mastodon_to_ldap.py:23
+#, python-format
+msgid "Adding user %(user)s"
+msgstr "Füge Benutzer %(user)s hinzu"
+
+#: gpnmgr/mastodon/models/mastodon.py:18
+#: gpnmgr/mastodon/templates/mastodon/account_detail.html:17
+#: gpnmgr/mastodon/templates/mastodon/account_list.html:17
+#: gpnmgr/teams/models/team.py:19
+#: gpnmgr/teams/templates/teams/team_detail.html:19
+#: gpnmgr/teams/templates/teams/team_list.html:18
+msgid "Name"
+msgstr "Name"
+
+#: gpnmgr/mastodon/models/mastodon.py:19
+#: gpnmgr/mastodon/templates/mastodon/account_detail.html:19
+#: gpnmgr/mastodon/templates/mastodon/account_list.html:18
+msgid "Description"
+msgstr "Beschreibung"
+
+#: gpnmgr/mastodon/models/mastodon.py:21
+#: gpnmgr/mastodon/templates/mastodon/account_detail.html:28
+#: gpnmgr/mastodon/templates/mastodon/account_list.html:19
+#, fuzzy
+#| msgid "User"
+msgid "Users"
+msgstr "Benutzer"
+
+#: gpnmgr/mastodon/models/mastodon.py:26
+#, fuzzy
+#| msgid "Mastodon accounts"
+msgid "Mastodon Account"
+msgstr "Mastodon Accounts"
+
+#: gpnmgr/mastodon/models/mastodon.py:27
+#, fuzzy
+#| msgid "Mastodon accounts"
+msgid "Mastodon Accounts"
+msgstr "Mastodon Accounts"
+
+#: gpnmgr/mastodon/templates/mastodon/account_create.html:7
+#: gpnmgr/mastodon/templates/mastodon/account_create.html:25
+#, fuzzy
+#| msgid "My account"
+msgid "Create account"
+msgstr "Mein account"
+
+#: gpnmgr/mastodon/templates/mastodon/account_create.html:9
+#: gpnmgr/mastodon/templates/mastodon/account_create.html:22
+#: gpnmgr/mastodon/templates/mastodon/account_detail.html:72
+#: gpnmgr/mastodon/templates/mastodon/account_detail.html:76
+#: gpnmgr/mastodon/templates/mastodon/account_modify.html:9
+#: gpnmgr/mastodon/templates/mastodon/account_modify.html:22
+#: gpnmgr/mastodon/templates/mastodon/account_user_add.html:10
+#: gpnmgr/mastodon/templates/mastodon/account_user_add.html:27
+#: gpnmgr/teams/templates/teams/team_create.html:9
+#: gpnmgr/teams/templates/teams/team_create.html:31
+#: gpnmgr/teams/templates/teams/team_detail.html:103
+#: gpnmgr/teams/templates/teams/team_detail.html:107
+#: gpnmgr/teams/templates/teams/team_detail.html:124
+#: gpnmgr/teams/templates/teams/team_detail.html:128
+#: gpnmgr/teams/templates/teams/team_detail.html:150
+#: gpnmgr/teams/templates/teams/team_detail.html:154
+#: gpnmgr/teams/templates/teams/team_member_add.html:10
+#: gpnmgr/teams/templates/teams/team_member_add.html:27
+#: gpnmgr/teams/templates/teams/team_modify.html:9
+#: gpnmgr/teams/templates/teams/team_modify.html:31
+msgid "Close"
+msgstr "Schließen"
+
+#: gpnmgr/mastodon/templates/mastodon/account_create.html:24
+#: gpnmgr/mastodon/templates/mastodon/account_modify.html:23
+#: gpnmgr/mastodon/templates/mastodon/account_user_add.html:29
+#: gpnmgr/teams/templates/teams/team_create.html:33
+#: gpnmgr/teams/templates/teams/team_member_add.html:29
+#: gpnmgr/teams/templates/teams/team_modify.html:32
+msgid "Reset"
+msgstr "Reset"
+
+#: gpnmgr/mastodon/templates/mastodon/account_detail.html:7
+#, fuzzy
+#| msgid "My account"
+msgid "Account"
+msgstr "Mein account"
+
+#: gpnmgr/mastodon/templates/mastodon/account_detail.html:70
+#, fuzzy, python-format
+#| msgid "Do you really want to remove %(member)s?"
+msgid "Do you really want to remove %(user)s?"
+msgstr "Möchtest du wirklich %(member)s entfernen?"
+
+#: gpnmgr/mastodon/templates/mastodon/account_detail.html:78
+#: gpnmgr/teams/templates/teams/team_detail.html:156
+msgid "Remove"
+msgstr "Entfernen"
+
+#: gpnmgr/mastodon/templates/mastodon/account_modify.html:7
+#: gpnmgr/teams/templates/teams/team_modify.html:7
+msgid "Modify team"
+msgstr "Team bearbeiten"
+
+#: gpnmgr/mastodon/templates/mastodon/account_modify.html:24
+#: gpnmgr/teams/templates/teams/team_modify.html:33
+msgid "Modify"
+msgstr "Bearbeiten"
+
+#: gpnmgr/mastodon/templates/mastodon/account_user_add.html:8
+#, fuzzy
+#| msgid "Add member"
+msgid "Add user"
+msgstr "Mitglied hinzufügen"
+
+#: gpnmgr/mastodon/templates/mastodon/account_user_add.html:30
+#: gpnmgr/teams/templates/teams/team_member_add.html:30
+msgid "Add"
+msgstr "Hinzufügen"
+
+#: gpnmgr/mastodon/views/mastodon.py:97 gpnmgr/templates/top_nav.html:24
+msgid "Mastodon accounts"
+msgstr "Mastodon Accounts"
+
+#: gpnmgr/mastodon/views/mastodon.py:114
+#, fuzzy
+#| msgid "Mastodon accounts"
+msgid "Mastodon account"
+msgstr "Mastodon Accounts"
+
+#: gpnmgr/mastodon/views/mastodon.py:156
+#, fuzzy, python-format
+#| msgid "Successfully added %(member)s to team"
+msgid "Successfully added %(user)s to account"
+msgstr "Erfolgreich %(member)s zum Team hinzugefügt"
+
+#: gpnmgr/mastodon/views/mastodon.py:181 gpnmgr/teams/views/teams.py:192
+#, python-format
+msgid "Successfully removed %(user)s"
+msgstr "%(user)s erfolgreich entfernt"
+
+#: gpnmgr/mastodon/views/mastodon.py:185
+#, fuzzy, python-format
+#| msgid "%(user)s was not a member of the team"
+msgid "%(user)s was not a user of the account"
+msgstr "%(user)s war kein Mitglied des Teams"
+
+#: gpnmgr/settings.py:146
+msgid "German"
+msgstr "Deutsch"
+
+#: gpnmgr/settings.py:147
+msgid "English"
+msgstr "Englisch"
 
 #: gpnmgr/teams/management/commands/import_ldap_groups.py:44
 #, python-format
@@ -120,12 +293,6 @@ msgstr "Team existiert nicht; würde erstellt werden"
 #: gpnmgr/teams/management/commands/import_ldap_groups.py:60
 msgid "Syncing"
 msgstr "Synchronisiere"
-
-#: gpnmgr/teams/models/team.py:19
-#: gpnmgr/teams/templates/teams/team_detail.html:19
-#: gpnmgr/teams/templates/teams/team_list.html:18
-msgid "Name"
-msgstr "Name"
 
 #: gpnmgr/teams/models/team.py:20
 #: gpnmgr/teams/templates/teams/team_detail.html:17
@@ -177,27 +344,6 @@ msgstr "Teams"
 msgid "Create team"
 msgstr "Erstelle Team"
 
-#: gpnmgr/teams/templates/teams/team_create.html:9
-#: gpnmgr/teams/templates/teams/team_create.html:31
-#: gpnmgr/teams/templates/teams/team_detail.html:103
-#: gpnmgr/teams/templates/teams/team_detail.html:107
-#: gpnmgr/teams/templates/teams/team_detail.html:124
-#: gpnmgr/teams/templates/teams/team_detail.html:128
-#: gpnmgr/teams/templates/teams/team_detail.html:150
-#: gpnmgr/teams/templates/teams/team_detail.html:154
-#: gpnmgr/teams/templates/teams/team_member_add.html:10
-#: gpnmgr/teams/templates/teams/team_member_add.html:27
-#: gpnmgr/teams/templates/teams/team_modify.html:9
-#: gpnmgr/teams/templates/teams/team_modify.html:31
-msgid "Close"
-msgstr "Schließen"
-
-#: gpnmgr/teams/templates/teams/team_create.html:33
-#: gpnmgr/teams/templates/teams/team_member_add.html:29
-#: gpnmgr/teams/templates/teams/team_modify.html:32
-msgid "Reset"
-msgstr "Reset"
-
 #: gpnmgr/teams/templates/teams/team_detail.html:47
 #: gpnmgr/teams/templates/teams/team_list.html:23
 msgid "Admins"
@@ -226,25 +372,9 @@ msgstr "Herabstufen"
 msgid "Do you really want to remove %(member)s?"
 msgstr "Möchtest du wirklich %(member)s entfernen?"
 
-#: gpnmgr/teams/templates/teams/team_detail.html:156
-msgid "Remove"
-msgstr "Entfernen"
-
 #: gpnmgr/teams/templates/teams/team_member_add.html:8
 msgid "Add member"
 msgstr "Mitglied hinzufügen"
-
-#: gpnmgr/teams/templates/teams/team_member_add.html:30
-msgid "Add"
-msgstr "Hinzufügen"
-
-#: gpnmgr/teams/templates/teams/team_modify.html:7
-msgid "Modify team"
-msgstr "Team bearbeiten"
-
-#: gpnmgr/teams/templates/teams/team_modify.html:33
-msgid "Modify"
-msgstr "Bearbeiten"
 
 #: gpnmgr/teams/views/teams.py:162
 #, python-format
@@ -256,11 +386,6 @@ msgstr "Erfolgreich %(member)s zum Team hinzugefügt"
 msgid "You don't have permissions to remove admin %(user)s from team"
 msgstr ""
 "Du hast keine Berechtigungen um den Admin %(user)s aus dem Team zu entfernen"
-
-#: gpnmgr/teams/views/teams.py:192
-#, python-format
-msgid "Successfully removed %(user)s"
-msgstr "%(user)s erfolgreich entfernt"
 
 #: gpnmgr/teams/views/teams.py:196
 #, python-format
@@ -318,10 +443,6 @@ msgstr "Teamverwaltung"
 #: gpnmgr/templates/top_nav.html:18
 msgid "List teams"
 msgstr "Teams anzeigen"
-
-#: gpnmgr/templates/top_nav.html:24
-msgid "Mastodon accounts"
-msgstr "Mastodon Accounts"
 
 #: gpnmgr/templates/top_nav.html:42
 msgid "Language selector"

@@ -8,7 +8,7 @@ team_manager_permissions = [
 ]
 
 fedi_manager_permissions = [
-    'fedi.manage_accounts',
+    'mastodon.manage_accounts',
 ]
 
 admin_permissions = [
