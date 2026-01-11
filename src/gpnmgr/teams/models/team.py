@@ -23,7 +23,7 @@ class Team(models.Model):
 
     ldap_name = models.CharField(_("LDAP Name"), max_length=255, default=None, null=True, unique=True)
 
-    admins = models.ManyToManyField(User, verbose_name=_("Administrators"), default=None)
+    admins = models.ManyToManyField(User, verbose_name=_("Administrators"), related_name='team_admins', default=None)
     members = models.ManyToManyField(User, verbose_name=_("Members"), related_name='teams', default=None)
 
 

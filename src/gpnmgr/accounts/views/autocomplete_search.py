@@ -29,3 +29,7 @@ class UserSearchView(LoginRequiredMixin, PermissionRequiredMixin, View):
 
         return JsonResponse({'results': results})
 
+    def has_permission(self):
+        if self.request.user.team_admins.count() > 0:
+            return True
+        return self.request.user.has_perm('teams.manage_teams')
