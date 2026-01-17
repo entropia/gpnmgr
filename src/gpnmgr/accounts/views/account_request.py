@@ -130,9 +130,11 @@ class AccountRequestConfirmView(FormView):
         conn.bind()
 
         user_dn = f'{settings.LDAP_USER_PK}={form.cleaned_data.get('username')},{settings.LDAP_USER_OU},{settings.LDAP_BASE_DN}'
+        object_classes = ['top', settings.LDAP_USER_OBJECT_CLASS, settings.LDAP_MASTODON_OBJECT_CLASS] + settings.LDAP_USER_ADDITIONAL_OBJECT_CLASSES
+
         conn.add(
             user_dn,
-            ['top', settings.LDAP_USER_OBJECT_CLASS, settings.LDAP_MASTODON_OBJECT_CLASS],
+            object_classes,
             {
                 settings.LDAP_USER_PK: form.cleaned_data.get('username'),
                 settings.LDAP_USER_MAIL_PK: self.a_r.email,

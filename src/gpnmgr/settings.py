@@ -200,6 +200,7 @@ LDAP_USER_MAIL_PK = os.environ.get('LDAP_USER_MAIL_PK', 'mail')
 LDAP_USER_NAME_PK = os.environ.get('LDAP_USER_NAME_PK', 'sn')
 LDAP_USER_DISPLAY_NAME_PK = os.environ.get('LDAP_USER_DISPLAY_NAME_PK', 'displayName')
 LDAP_USER_PASSWORD_PK = os.environ.get('LDAP_USER_PASSWORD_PK', 'userPassword')
+LDAP_USER_ADDITIONAL_OBJECT_CLASSES = os.environ.get('LDAP_USER_ADDITIONAL_OBJECT_CLASSES', 'extendedInfo').split(',')
 LDAP_GROUP_OBJECT_CLASS = os.environ.get('LDAP_GROUP_OBJECT_CLASS', 'groupOfNames')
 LDAP_PLACEHOLDER_DN = os.environ.get('LDAP_PLACEHOLDER_DN', 'cn=null,dc=example,dc=com')
 LDAP_GROUP_MEMBER_REQUIRED = os.environ.get('LDAP_GROUP_MEMBER_REQUIRED', 'true').lower() in ['true', 'y', 'yes']
