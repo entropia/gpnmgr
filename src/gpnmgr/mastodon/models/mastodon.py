@@ -23,8 +23,8 @@ class Mastodon(models.Model):
 
     class Meta:
         ordering = ["name"]
-        verbose_name = _("Mastodon Account")
-        verbose_name_plural = _("Mastodon Accounts")
+        verbose_name = _("Mastodon account")
+        verbose_name_plural = _("Mastodon accounts")
         default_permissions = ()
         permissions = [
             ('manage_accounts', 'May create, modify and delete accounts'),

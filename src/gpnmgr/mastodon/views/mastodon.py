@@ -13,7 +13,6 @@ from django.views.generic import CreateView, ListView, DetailView, UpdateView
 from gpnmgr.accounts.models import User
 from gpnmgr.mastodon.forms.add_user_form import MastodonUserAddForm
 from gpnmgr.mastodon.models import Mastodon
-from gpnmgr.teams.models import Team
 
 
 class MastodonCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
