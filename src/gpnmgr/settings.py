@@ -196,6 +196,10 @@ LDAP_GROUP_OU = os.environ.get('LDAP_GROUP_OU', 'ou=groups')
 LDAP_GROUP_MEMBER_KEY = os.environ.get('LDAP_GROUP_MEMBER_KEY', 'member')
 LDAP_GROUP_MANAGER_KEY = os.environ.get('LDAP_GROUP_MANAGER_KEY', 'owner')
 LDAP_USER_OBJECT_CLASS = os.environ.get('LDAP_USER_OBJECT_CLASS', 'inetOrgPerson')
+LDAP_USER_MAIL_PK = os.environ.get('LDAP_USER_MAIL_PK', 'mail')
+LDAP_USER_NAME_PK = os.environ.get('LDAP_USER_NAME_PK', 'sn')
+LDAP_USER_DISPLAY_NAME_PK = os.environ.get('LDAP_USER_DISPLAY_NAME_PK', 'displayName')
+LDAP_USER_PASSWORD_PK = os.environ.get('LDAP_USER_PASSWORD_PK', 'userPassword')
 LDAP_GROUP_OBJECT_CLASS = os.environ.get('LDAP_GROUP_OBJECT_CLASS', 'groupOfNames')
 LDAP_PLACEHOLDER_DN = os.environ.get('LDAP_PLACEHOLDER_DN', 'cn=null,dc=example,dc=com')
 LDAP_GROUP_MEMBER_REQUIRED = os.environ.get('LDAP_GROUP_MEMBER_REQUIRED', 'true').lower() in ['true', 'y', 'yes']
@@ -203,6 +207,10 @@ LDAP_GROUP_MEMBER_REQUIRED = os.environ.get('LDAP_GROUP_MEMBER_REQUIRED', 'true'
 MASTODON_BASE = os.environ.get('MASTODON_BASE', '@example.com')
 LDAP_MASTODON_OBJECT_CLASS = os.environ.get('LDAP_MASTODON_OBJECT_CLASS', 'gulaschCrew')
 LDAP_MASTODON_KEY = os.environ.get('LDAP_MASTODON_KEY', 'gulaschOperationCenter')
+
+USER_INVITE_TIMEOUT_DAYS = int(os.environ.get('USER_INVITE_TIMEOUT_DAYS', '7'))
+USER_INVITE_FROM_EMAIL = os.environ.get('USER_INVITE_FROM_EMAIL', 'invite@example.com')
+USER_INVITE_BASE_URL = os.environ.get('USER_INVITE_BASE_URL', 'https://example.com')
 
 try:
     from bootstrap.settings import BOOTSTRAP5
@@ -216,6 +224,9 @@ from ldap3 import Server, Connection, ALL, SAFE_RESTARTABLE, AUTO_BIND_NONE
 
 server = Server(LDAP_BIND_URL, get_info=ALL)
 LDAP_CONNECTION = Connection(server, LDAP_BIND_DN, LDAP_BIND_PASSWORD, auto_bind=AUTO_BIND_NONE)
+
+#if DEBUG:
+#    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 from .permissions import permissions
 PERMISSIONS = permissions

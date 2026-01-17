@@ -24,6 +24,12 @@
                             {% trans 'Mastodon accounts' %}</a>
                     </li>
                 {% endif %}
+                {% if perms.accounts.manage_requests %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'user_invitations' %}"><span class="fa-fw fa-solid fa-person-circle-question"></span>
+                            {% trans 'User invitations' %}</a>
+                    </li>
+                {% endif %}
                 {% if perms.log.view_log %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'log_list' %}"><span
@@ -34,11 +40,15 @@
             <ul class="navbar-nav me-2">
                 <li class="nav-item">
                     <div class="btn-group" role="group">
+                        {% if teams.manage_teams or request.user.team_admins.count > 0 %}
+                            <a class="btn btn-info" href="#" data-bs-toggle="modal" data-bs-target="#inviteUserModal"><span
+                                    class="fa-fw fa-solid fa-user-clock"></span> {% trans 'Invite user' %}</a>
+                        {% endif %}
                         {% get_language_info_list for LANGUAGES as languages %}
                         {% if settings.USE_I18N and languages|length > 1 %}
-                            <form action="{% url 'set_language' %}" method="post">
+                            <form class="btn btn-light p-0" action="{% url 'set_language' %}" method="post">
                                 {% csrf_token %}
-                                <select class="form-select btn btn-light" name="language" onchange="this.form.submit()"
+                                <select class="form-select btn btn-light m-0" name="language" onchange="this.form.submit()"
                                         aria-label="{% trans 'Language selector' %}">
                                     {% get_current_language as LANGUAGE_CODE %}
                                     {% get_available_languages as LANGUAGES %}

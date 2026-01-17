@@ -29,6 +29,31 @@
     </div>
 </main>
 {% block modals %}{% endblock %}
+{% if perms.teams.manage_teams or request.user.team_admins.count > 0 %}
+    <div class="modal fade" id="inviteUserModal" tabindex="-1" aria-labelledby="inviteUserModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" id="inviteUserModalContent">
+                <form method="post" action="{% url 'user_invite' %}" id="inviteUserModalForm"
+                      autocomplete="off">{% csrf_token %}
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="inviteUserModalLabel">{% trans 'Invite user' %}</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="{% trans 'Close' %}"></button>
+                    </div>
+                    <div class="modal-body row gx-3 gy-0">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary"
+                                data-bs-dismiss="modal">{% trans 'Close' %}</button>
+                        <button type="button" id="inviteUserModalReset"
+                                class="btn btn-danger">{% trans 'Reset' %}</button>
+                        <button type="submit" class="btn btn-success">{% trans 'Invite user' %}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endif %}
 {% bootstrap_javascript %}
 <script>
     function modalSubmitHandler(modal_prefix, additionalHandler = null) {
@@ -83,6 +108,15 @@
         });
     }
 </script>
+{% if perms.teams.manage_teams or request.user.team_admins.count > 0 %}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            modalSubmitHandler('inviteUserModal');
+            modalResetHandler('inviteUserModal');
+            document.querySelector('#inviteUserModalReset').click();
+        });
+    </script>
+{% endif %}
 {% block javascript %}{% endblock %}
 <script type="text/javascript" src="{% static "js/fontawesome-all.min.js" %}"></script>
 <script type="text/javascript" src="{% static "js/masonary.pkgd.min.js" %}"></script>

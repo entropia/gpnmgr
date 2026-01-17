@@ -12,6 +12,7 @@ fedi_manager_permissions = [
 ]
 
 admin_permissions = [
+    'accounts.manage_requests',
     'log.view_log'
 ]
 

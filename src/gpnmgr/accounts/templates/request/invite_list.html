@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="card mb-3 my-3">
+        <div class="card-header card-header-buttons">
+            <h5>{{ title }}</h5>
+        </div>
+        <div class="card-body table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col" class="col-2">{% trans 'Invitation date' %}</th>
+                    <th scope="col" class="col-2">{% trans 'Confirmation date' %}</th>
+                    <th scope="col" class="col-2">{% trans 'Name' %}</th>
+                    <th scope="col" class="col-2">{% trans 'Email' %}</th>
+                    <th scope="col" class="col-2">{% trans 'Team' %}</th>
+                    <th scope="col" class="col-2">{% trans 'Inviter' %}</th>
+                    <th scope="col" class="col-1">{% trans 'Active' %}</th>
+                    <th scope="col" class="col-1">{% trans 'Confirmed' %}</th>
+                    <th scope="col" class="col-1"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for object in object_list %}
+                    {% if object.is_revoked %}
+                        <tr class="table-danger">
+                    {% elif object.is_confirmed %}
+                        <tr class="table-success">
+                    {% else %}
+                        <tr>
+                    {% endif %}
+                        <td>{{ object.created_at }}</td>
+                        <td>{{ object.confirmed_at|default_if_none:'-' }}</td>
+                        <td>{{ object.name|default_if_none:'-' }}</td>
+                        <td>{{ object.email }}</td>
+                        <td>{{ object.team }}</td>
+                        <td>{{ object.inviter }}</td>
+                        <td>{{ object.is_valid|fa_checkbox }}</td>
+                        <td>{{ object.is_confirmed|fa_checkbox }}</td>
+                        <td>
+                            {% if object.is_valid %}
+                            <a class="text-danger revoke-invite-button" href="#" data-bs-toggle="modal"
+                               data-bs-target="#confirmRevokationModal{{ object.pk }}"><span
+                                    class="fa-fw fa-solid fa-ban"></span></a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+{% block modals %}
+    {% for object in object_list %}
+        {% with object.name as name %}
+            <div class="modal fade" id="confirmRevokationModal{{ object.pk }}" tabindex="-1"
+                 aria-labelledby="confirmRevokationModal{{ object.pk }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5"
+                                id="confirmRevokationModal{{ object.pk }}Label">{% blocktrans %}Do you really want to revoke the invite for {{ name }}?{% endblocktrans %}</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="{% trans 'Close' %}"></button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">{% trans 'Close' %}</button>
+                            <a class="btn btn-danger"
+                               href="{% url 'user_invite_revoke' object.pk %}">{% trans 'Revoke' %}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endwith %}
+    {% endfor %}
+{% endblock %}
+{% block javascript %}
+    <!-- Dynamically include confirmation modal -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const modalWrapper = document.querySelector('#revokeInviteModalWrapper')
+
+            // Handle click on revoke buttons
+            document.querySelectorAll('.revoke-invite-button').forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    const url = btn.dataset.url;
+
+                    // Fetch the form via XHR
+                    const response = await fetch(url, {
+                        headers: {'X-Requested-With': 'XMLHttpRequest'}
+                    });
+
+                    // Fill modal wrapper with form
+                    modalWrapper.innerHTML = await response.text();
+                    const modalEl = document.querySelector('#revokeInviteModal');
+                    const modalInstance = new bootstrap.Modal(modalEl);
+
+                    modalSubmitHandler('revokeInviteModal');
+                    modalResetHandler('revokeInviteModal');
+
+                    // Show modal
+                    modalInstance.show();
+                });
+            });
+        });
+    </script>
+{% endblock %}

@@ -3,7 +3,7 @@ from django.core.management import BaseCommand
 from ldap3 import SUBTREE
 
 from gpnmgr.accounts.models import User
-from gpnmgr.settings import LDAP_USER_PK
+from gpnmgr.settings import LDAP_USER_PK, LDAP_USER_MAIL_PK
 
 
 class Command(BaseCommand):
@@ -25,6 +25,7 @@ class Command(BaseCommand):
             search_scope=SUBTREE,
             attributes=[
                 'sn',
+                LDAP_USER_MAIL_PK,
                 LDAP_USER_PK,
             ],
         )
@@ -37,6 +38,7 @@ class Command(BaseCommand):
 
             username = attrs.get(LDAP_USER_PK, [None])[0]
             last_name = attrs.get('sn', [None])[0]
+            email = None if len(attrs.get(LDAP_USER_MAIL_PK, [None])) == 0 else attrs.get(LDAP_USER_MAIL_PK, [None])[0]
             object_dn = entry.entry_dn
 
             if not username:
@@ -54,6 +56,7 @@ class Command(BaseCommand):
                     defaults={
                         'last_name': last_name or '',
                         'display_name': last_name or None,
+                        'email': email or None,
                         'object_dn': object_dn,
                     },
                 )
@@ -65,6 +68,7 @@ class Command(BaseCommand):
                 else:
                     user.last_name = last_name or ''
                     user.display_name = last_name or ''
+                    user.email = email or ''
                     user.object_dn = object_dn
                     user.save()
                     print(f'User already exists: {username}. Synced attributes')

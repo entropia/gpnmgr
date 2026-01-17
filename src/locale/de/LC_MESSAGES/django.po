@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-11 15:56+0100\n"
+"POT-Creation-Date: 2026-01-17 23:26+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +18,66 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: gpnmgr/accounts/forms/account_request_confirm.py:20
+#: gpnmgr/accounts/forms/account_request_confirm.py:21
+#: gpnmgr/mastodon/forms/add_user_form.py:18
+#: gpnmgr/teams/forms/add_member_form.py:18
+msgid "Enter users to add"
+msgstr "Benutzer zum Hinzufügen eintragen"
+
+#: gpnmgr/accounts/forms/account_request_confirm.py:26
+msgid "The username is already taken."
+msgstr "Der Benutzername ist schon in Verwendung."
+
+#: gpnmgr/accounts/forms/account_request_confirm.py:31
+msgid "Passwords do not match."
+msgstr "Die Passwörter sind nicht identisch."
+
+#: gpnmgr/accounts/models/request.py:24
+#: gpnmgr/accounts/templates/request/invite_list.html:13
+#: gpnmgr/mastodon/models/mastodon.py:18
+#: gpnmgr/mastodon/templates/mastodon/account_detail.html:17
+#: gpnmgr/mastodon/templates/mastodon/account_list.html:17
+#: gpnmgr/teams/models/team.py:19
+#: gpnmgr/teams/templates/teams/team_detail.html:19
+#: gpnmgr/teams/templates/teams/team_list.html:18
+msgid "Name"
+msgstr "Name"
+
+#: gpnmgr/accounts/models/request.py:25
+#: gpnmgr/accounts/templates/request/invite_list.html:14
+msgid "Email"
+msgstr "E-Mail"
+
+#: gpnmgr/accounts/models/request.py:26
+msgid "Invite text"
+msgstr "Einladungstext"
+
+#: gpnmgr/accounts/models/request.py:27
+#: gpnmgr/accounts/templates/request/invite_list.html:15
+#: gpnmgr/teams/models/team.py:32
+#: gpnmgr/teams/templates/teams/team_detail.html:7
+#: gpnmgr/teams/views/teams.py:124
+msgid "Team"
+msgstr "Team"
+
+#: gpnmgr/accounts/models/request.py:29
+#: gpnmgr/accounts/templates/request/invite_list.html:16
+msgid "Inviter"
+msgstr "Einlader"
+
+#: gpnmgr/accounts/models/request.py:31
+msgid "Revokation"
+msgstr "Widerrufung"
+
+#: gpnmgr/accounts/models/request.py:35
+msgid "Account Request"
+msgstr "Account Anfrage"
+
+#: gpnmgr/accounts/models/request.py:36
+msgid "Account Requests"
+msgstr "Account Anfragen"
+
 #: gpnmgr/accounts/models/user.py:28
 msgid "Display name"
 msgstr "Anzeigename"
@@ -25,6 +85,10 @@ msgstr "Anzeigename"
 #: gpnmgr/accounts/models/user.py:29
 msgid "LDAP DN"
 msgstr "LDAP DN"
+
+#: gpnmgr/accounts/signals/account_request.py:37
+msgid "accounts.request.invite_subject"
+msgstr "GPN - Einladung für SSO-Account"
 
 #: gpnmgr/accounts/templates/accounts/user_detail.html:4
 msgid "Profile"
@@ -34,7 +98,150 @@ msgstr "Profil"
 msgid "accounts.landing_page.title"
 msgstr "GPN Teamverwaltung"
 
-#: gpnmgr/accounts/views/auth.py:25 gpnmgr/templates/top_nav.html:60
+#: gpnmgr/accounts/templates/request/account_confirm.html:5
+#: gpnmgr/accounts/templates/request/account_confirm.html:27
+#: gpnmgr/mastodon/templates/mastodon/account_create.html:7
+#: gpnmgr/mastodon/templates/mastodon/account_create.html:25
+msgid "Create account"
+msgstr "Account anlegen"
+
+#: gpnmgr/accounts/templates/request/account_invite.html:7
+#: gpnmgr/accounts/templates/request/account_invite.html:31
+#: gpnmgr/templates/base.html:39 gpnmgr/templates/base.html:50
+#: gpnmgr/templates/top_nav.html:45
+msgid "Invite user"
+msgstr "Benutzer einladen"
+
+#: gpnmgr/accounts/templates/request/account_invite.html:9
+#: gpnmgr/accounts/templates/request/account_invite.html:28
+#: gpnmgr/accounts/templates/request/invite_list.html:64
+#: gpnmgr/accounts/templates/request/invite_list.html:68
+#: gpnmgr/mastodon/templates/mastodon/account_create.html:9
+#: gpnmgr/mastodon/templates/mastodon/account_create.html:22
+#: gpnmgr/mastodon/templates/mastodon/account_detail.html:72
+#: gpnmgr/mastodon/templates/mastodon/account_detail.html:76
+#: gpnmgr/mastodon/templates/mastodon/account_modify.html:9
+#: gpnmgr/mastodon/templates/mastodon/account_modify.html:22
+#: gpnmgr/mastodon/templates/mastodon/account_user_add.html:10
+#: gpnmgr/mastodon/templates/mastodon/account_user_add.html:27
+#: gpnmgr/teams/templates/teams/team_create.html:9
+#: gpnmgr/teams/templates/teams/team_create.html:31
+#: gpnmgr/teams/templates/teams/team_detail.html:103
+#: gpnmgr/teams/templates/teams/team_detail.html:107
+#: gpnmgr/teams/templates/teams/team_detail.html:124
+#: gpnmgr/teams/templates/teams/team_detail.html:128
+#: gpnmgr/teams/templates/teams/team_detail.html:150
+#: gpnmgr/teams/templates/teams/team_detail.html:154
+#: gpnmgr/teams/templates/teams/team_member_add.html:10
+#: gpnmgr/teams/templates/teams/team_member_add.html:27
+#: gpnmgr/teams/templates/teams/team_modify.html:9
+#: gpnmgr/teams/templates/teams/team_modify.html:31
+#: gpnmgr/templates/base.html:41 gpnmgr/templates/base.html:47
+msgid "Close"
+msgstr "Schließen"
+
+#: gpnmgr/accounts/templates/request/account_invite.html:30
+#: gpnmgr/mastodon/templates/mastodon/account_create.html:24
+#: gpnmgr/mastodon/templates/mastodon/account_modify.html:23
+#: gpnmgr/mastodon/templates/mastodon/account_user_add.html:29
+#: gpnmgr/teams/templates/teams/team_create.html:33
+#: gpnmgr/teams/templates/teams/team_member_add.html:29
+#: gpnmgr/teams/templates/teams/team_modify.html:32
+#: gpnmgr/templates/base.html:49
+msgid "Reset"
+msgstr "Reset"
+
+#: gpnmgr/accounts/templates/request/account_invite_email.html:1
+#, python-format
+msgid ""
+"accounts.request.invite.html %(name)s %(inviter_name)s %(invite_message)s "
+"%(invite_link)s %(invite_link)s %(invite_link)s %(team)s"
+msgstr ""
+"Hallo %(name)s,<br><br>du wurdest von %(inviter_name)s eingeladen einen "
+"Account im Entropia SSO anzulegen, um auf der GPN im Team %(team)s "
+"mitzuarbeiten.<br>Es wurde der folgende Hinweis für dich hinterlassen:"
+"<br><br><blockquote><p>%(invite_message)s</blockquote><br><br>Bitte klicke "
+"den folgenden <a href='%(invite_link)s'>Link</a>, um deinen Account zu "
+"bestätigen und dein Passwort zu setzen. Falls der Link nicht funktioniert, "
+"kannst du auch <a href='%(invite_link)s'>%(invite_link)s</a> manuell in "
+"deinem Browser aufrufen.<br><br>Viele Grüße<br>Die GPN-Teamverwaltung"
+
+#: gpnmgr/accounts/templates/request/account_invite_email.txt:1
+#, python-format
+msgid ""
+"accounts.request.invite.plaintext %(name)s %(inviter_name)s "
+"%(invite_message)s %(invite_link)s %(team)s"
+msgstr ""
+"Hallo %(name)s,\n"
+"\n"
+"du wurdest von %(inviter_name)s eingeladen einen Account im Entropia SSO "
+"anzulegen, um auf der GPN im Team %(team)s mitzuarbeiten. \n"
+"Es wurde der folgende Hinweis für dich hinterlassen: \n"
+"\n"
+"%(invite_message)s\n"
+"\n"
+"Bitte rufe %(invite_link)s in deinem Browser auf, um deinen Account zu "
+"bestätigen und dein Passwort zu setzen. \n"
+"\n"
+" Viele Grüße\n"
+"Die GPN-Teamverwaltung"
+
+#: gpnmgr/accounts/templates/request/invite_list.html:11
+msgid "Invitation date"
+msgstr "Einladungsdatum"
+
+#: gpnmgr/accounts/templates/request/invite_list.html:12
+msgid "Confirmation date"
+msgstr "Bestätigungsdatum"
+
+#: gpnmgr/accounts/templates/request/invite_list.html:17
+msgid "Active"
+msgstr "Aktiv"
+
+#: gpnmgr/accounts/templates/request/invite_list.html:18
+msgid "Confirmed"
+msgstr "Bestätigt"
+
+#: gpnmgr/accounts/templates/request/invite_list.html:62
+#, python-format
+msgid "Do you really want to revoke the invite for %(name)s?"
+msgstr "Möchtest du wirklich die Einladung für %(name)s widerrufen?"
+
+#: gpnmgr/accounts/templates/request/invite_list.html:70
+msgid "Revoke"
+msgstr "Widerrufen"
+
+#: gpnmgr/accounts/views/account_request.py:55
+#, python-format
+msgid "Successfully invited %(user)s"
+msgstr "%(user)s erfolgreich eingeladen"
+
+#: gpnmgr/accounts/views/account_request.py:79 gpnmgr/templates/top_nav.html:30
+msgid "User invitations"
+msgstr "Benutzereinladungen"
+
+#: gpnmgr/accounts/views/account_request.py:91
+#, python-format
+msgid "Successfully revoked invite for %(user)s"
+msgstr "Einladung für %(user)s erfolgreich widerrufen"
+
+#: gpnmgr/accounts/views/account_request.py:145
+#, python-format
+msgid ""
+"Error creating the user object in LDAP. Please try again later. Contact us "
+"if the error persists. Error code %(result)s: %(message)s"
+msgstr ""
+"Beim Anlegen des Benutzerobjektes im LDAP ist ein Fehler aufgetreten. Bitte versuch es später erneut. "
+"Kontaktiere uns, sollte das Problem bestehen bleiben. Fehlercode %(result)s: %(message)s"
+
+#: gpnmgr/accounts/views/account_request.py:167
+msgid ""
+"Your account has been created successfully. It might take a few minutes "
+"until it is fully synchronized and active."
+msgstr ""
+"Dein Account wurde erfolgreich angelegt. Es könnte einige Minuten dauern, bis er vollständig synchronisiert und aktiv ist."
+
+#: gpnmgr/accounts/views/auth.py:25 gpnmgr/templates/top_nav.html:70
 msgid "Login"
 msgstr "Login"
 
@@ -83,14 +290,9 @@ msgstr "Objekt"
 msgid "Change"
 msgstr "Änderung"
 
-#: gpnmgr/log/views/log.py:11 gpnmgr/templates/top_nav.html:30
+#: gpnmgr/log/views/log.py:11 gpnmgr/templates/top_nav.html:36
 msgid "Auditlog"
 msgstr "Änderungslog"
-
-#: gpnmgr/mastodon/forms/add_user_form.py:18
-#: gpnmgr/teams/forms/add_member_form.py:18
-msgid "Enter users to add"
-msgstr "Benutzer zum Hinzufügen eintragen"
 
 #: gpnmgr/mastodon/forms/add_user_form.py:47
 #: gpnmgr/teams/forms/add_member_form.py:47
@@ -99,16 +301,14 @@ msgid "The provided usernames %(invalid_users)s are invalid."
 msgstr "Die angegebenen Benutzernamen %(invalid_users)s sind ungültig."
 
 #: gpnmgr/mastodon/management/commands/import_mastodon_accounts.py:50
-#, fuzzy, python-format
-#| msgid "Mastodon accounts"
+#, python-format
 msgid "Created account %(account)s"
-msgstr "Mastodon Accounts"
+msgstr "Habe account %(account)s erstellt"
 
 #: gpnmgr/mastodon/management/commands/import_mastodon_accounts.py:58
-#, fuzzy, python-format
-#| msgid "Team not existing, would create"
+#, python-format
 msgid "Account not existing, would create %(account)s"
-msgstr "Team existiert nicht; würde erstellt werden"
+msgstr "Account existiert nicht; würde %(account)s erstellen"
 
 #: gpnmgr/mastodon/management/commands/import_mastodon_accounts.py:63
 #, python-format
@@ -130,15 +330,6 @@ msgstr "Synchronisiere Benutzer von %(account)s zum LDAP"
 msgid "Adding user %(user)s"
 msgstr "Füge Benutzer %(user)s hinzu"
 
-#: gpnmgr/mastodon/models/mastodon.py:18
-#: gpnmgr/mastodon/templates/mastodon/account_detail.html:17
-#: gpnmgr/mastodon/templates/mastodon/account_list.html:17
-#: gpnmgr/teams/models/team.py:19
-#: gpnmgr/teams/templates/teams/team_detail.html:19
-#: gpnmgr/teams/templates/teams/team_list.html:18
-msgid "Name"
-msgstr "Name"
-
 #: gpnmgr/mastodon/models/mastodon.py:19
 #: gpnmgr/mastodon/templates/mastodon/account_detail.html:19
 #: gpnmgr/mastodon/templates/mastodon/account_list.html:18
@@ -148,73 +339,26 @@ msgstr "Beschreibung"
 #: gpnmgr/mastodon/models/mastodon.py:21
 #: gpnmgr/mastodon/templates/mastodon/account_detail.html:28
 #: gpnmgr/mastodon/templates/mastodon/account_list.html:19
-#, fuzzy
-#| msgid "User"
 msgid "Users"
 msgstr "Benutzer"
 
-#: gpnmgr/mastodon/models/mastodon.py:26
-#, fuzzy
-#| msgid "Mastodon accounts"
-msgid "Mastodon Account"
+#: gpnmgr/mastodon/models/mastodon.py:26 gpnmgr/mastodon/views/mastodon.py:113
+msgid "Mastodon account"
+msgstr "Mastodon Account"
+
+#: gpnmgr/mastodon/models/mastodon.py:27 gpnmgr/mastodon/views/mastodon.py:96
+#: gpnmgr/templates/top_nav.html:24
+msgid "Mastodon accounts"
 msgstr "Mastodon Accounts"
-
-#: gpnmgr/mastodon/models/mastodon.py:27
-#, fuzzy
-#| msgid "Mastodon accounts"
-msgid "Mastodon Accounts"
-msgstr "Mastodon Accounts"
-
-#: gpnmgr/mastodon/templates/mastodon/account_create.html:7
-#: gpnmgr/mastodon/templates/mastodon/account_create.html:25
-#, fuzzy
-#| msgid "My account"
-msgid "Create account"
-msgstr "Mein account"
-
-#: gpnmgr/mastodon/templates/mastodon/account_create.html:9
-#: gpnmgr/mastodon/templates/mastodon/account_create.html:22
-#: gpnmgr/mastodon/templates/mastodon/account_detail.html:72
-#: gpnmgr/mastodon/templates/mastodon/account_detail.html:76
-#: gpnmgr/mastodon/templates/mastodon/account_modify.html:9
-#: gpnmgr/mastodon/templates/mastodon/account_modify.html:22
-#: gpnmgr/mastodon/templates/mastodon/account_user_add.html:10
-#: gpnmgr/mastodon/templates/mastodon/account_user_add.html:27
-#: gpnmgr/teams/templates/teams/team_create.html:9
-#: gpnmgr/teams/templates/teams/team_create.html:31
-#: gpnmgr/teams/templates/teams/team_detail.html:103
-#: gpnmgr/teams/templates/teams/team_detail.html:107
-#: gpnmgr/teams/templates/teams/team_detail.html:124
-#: gpnmgr/teams/templates/teams/team_detail.html:128
-#: gpnmgr/teams/templates/teams/team_detail.html:150
-#: gpnmgr/teams/templates/teams/team_detail.html:154
-#: gpnmgr/teams/templates/teams/team_member_add.html:10
-#: gpnmgr/teams/templates/teams/team_member_add.html:27
-#: gpnmgr/teams/templates/teams/team_modify.html:9
-#: gpnmgr/teams/templates/teams/team_modify.html:31
-msgid "Close"
-msgstr "Schließen"
-
-#: gpnmgr/mastodon/templates/mastodon/account_create.html:24
-#: gpnmgr/mastodon/templates/mastodon/account_modify.html:23
-#: gpnmgr/mastodon/templates/mastodon/account_user_add.html:29
-#: gpnmgr/teams/templates/teams/team_create.html:33
-#: gpnmgr/teams/templates/teams/team_member_add.html:29
-#: gpnmgr/teams/templates/teams/team_modify.html:32
-msgid "Reset"
-msgstr "Reset"
 
 #: gpnmgr/mastodon/templates/mastodon/account_detail.html:7
-#, fuzzy
-#| msgid "My account"
 msgid "Account"
-msgstr "Mein account"
+msgstr "Account"
 
 #: gpnmgr/mastodon/templates/mastodon/account_detail.html:70
-#, fuzzy, python-format
-#| msgid "Do you really want to remove %(member)s?"
+#, python-format
 msgid "Do you really want to remove %(user)s?"
-msgstr "Möchtest du wirklich %(member)s entfernen?"
+msgstr "Möchtest du wirklich %(user)s entfernen?"
 
 #: gpnmgr/mastodon/templates/mastodon/account_detail.html:78
 #: gpnmgr/teams/templates/teams/team_detail.html:156
@@ -232,42 +376,28 @@ msgid "Modify"
 msgstr "Bearbeiten"
 
 #: gpnmgr/mastodon/templates/mastodon/account_user_add.html:8
-#, fuzzy
-#| msgid "Add member"
 msgid "Add user"
-msgstr "Mitglied hinzufügen"
+msgstr "Benutzer hinzufügen"
 
 #: gpnmgr/mastodon/templates/mastodon/account_user_add.html:30
 #: gpnmgr/teams/templates/teams/team_member_add.html:30
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: gpnmgr/mastodon/views/mastodon.py:97 gpnmgr/templates/top_nav.html:24
-msgid "Mastodon accounts"
-msgstr "Mastodon Accounts"
-
-#: gpnmgr/mastodon/views/mastodon.py:114
-#, fuzzy
-#| msgid "Mastodon accounts"
-msgid "Mastodon account"
-msgstr "Mastodon Accounts"
-
-#: gpnmgr/mastodon/views/mastodon.py:156
-#, fuzzy, python-format
-#| msgid "Successfully added %(member)s to team"
+#: gpnmgr/mastodon/views/mastodon.py:155
+#, python-format
 msgid "Successfully added %(user)s to account"
-msgstr "Erfolgreich %(member)s zum Team hinzugefügt"
+msgstr "%(user)s erfolgreich zum Account hinzugefügt"
 
-#: gpnmgr/mastodon/views/mastodon.py:181 gpnmgr/teams/views/teams.py:192
+#: gpnmgr/mastodon/views/mastodon.py:180 gpnmgr/teams/views/teams.py:196
 #, python-format
 msgid "Successfully removed %(user)s"
 msgstr "%(user)s erfolgreich entfernt"
 
-#: gpnmgr/mastodon/views/mastodon.py:185
-#, fuzzy, python-format
-#| msgid "%(user)s was not a member of the team"
+#: gpnmgr/mastodon/views/mastodon.py:184
+#, python-format
 msgid "%(user)s was not a user of the account"
-msgstr "%(user)s war kein Mitglied des Teams"
+msgstr "%(user)s war kein Nutzer des Accounts"
 
 #: gpnmgr/settings.py:146
 msgid "German"
@@ -329,13 +459,7 @@ msgstr "Administratoren"
 msgid "Members"
 msgstr "Mitglieder"
 
-#: gpnmgr/teams/models/team.py:32
-#: gpnmgr/teams/templates/teams/team_detail.html:7
-#: gpnmgr/teams/views/teams.py:120
-msgid "Team"
-msgstr "Team"
-
-#: gpnmgr/teams/models/team.py:33 gpnmgr/teams/views/teams.py:103
+#: gpnmgr/teams/models/team.py:33 gpnmgr/teams/views/teams.py:107
 msgid "Teams"
 msgstr "Teams"
 
@@ -376,38 +500,38 @@ msgstr "Möchtest du wirklich %(member)s entfernen?"
 msgid "Add member"
 msgstr "Mitglied hinzufügen"
 
-#: gpnmgr/teams/views/teams.py:162
+#: gpnmgr/teams/views/teams.py:166
 #, python-format
 msgid "Successfully added %(member)s to team"
 msgstr "Erfolgreich %(member)s zum Team hinzugefügt"
 
-#: gpnmgr/teams/views/teams.py:188
+#: gpnmgr/teams/views/teams.py:192
 #, python-format
 msgid "You don't have permissions to remove admin %(user)s from team"
 msgstr ""
 "Du hast keine Berechtigungen um den Admin %(user)s aus dem Team zu entfernen"
 
-#: gpnmgr/teams/views/teams.py:196
+#: gpnmgr/teams/views/teams.py:200
 #, python-format
 msgid "%(user)s was not a member of the team"
 msgstr "%(user)s war kein Mitglied des Teams"
 
-#: gpnmgr/teams/views/teams.py:215
+#: gpnmgr/teams/views/teams.py:219
 #, python-format
 msgid "%(user)s is already admin of the team"
 msgstr "%(user)s ist bereits Admin des Teams"
 
-#: gpnmgr/teams/views/teams.py:224
+#: gpnmgr/teams/views/teams.py:228
 #, python-format
 msgid "Successfully promoted %(user)s"
 msgstr "%(user)s erfolgreich hochgestuft"
 
-#: gpnmgr/teams/views/teams.py:229
+#: gpnmgr/teams/views/teams.py:233
 #, python-format
 msgid "%(user)s is not a member of the team"
 msgstr "%(user)s ist kein Mitglied des Teams"
 
-#: gpnmgr/teams/views/teams.py:245
+#: gpnmgr/teams/views/teams.py:249
 #, python-format
 msgid "Successfully demoted %(user)s"
 msgstr "%(user)s erfolgreich herabgestuft"
@@ -444,6 +568,6 @@ msgstr "Teamverwaltung"
 msgid "List teams"
 msgstr "Teams anzeigen"
 
-#: gpnmgr/templates/top_nav.html:42
+#: gpnmgr/templates/top_nav.html:52
 msgid "Language selector"
 msgstr "Sprachauswahl"

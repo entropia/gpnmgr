@@ -1,0 +1,1 @@
+{% blocktrans %}accounts.request.invite.plaintext {{ name }} {{ inviter_name }} {{ invite_message }} {{ invite_link }} {{ team }}{% endblocktrans %}

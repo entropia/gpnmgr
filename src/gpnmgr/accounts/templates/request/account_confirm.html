@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="card mb-3 my-3">
+        <div class="card-header card-header-buttons">
+            <h5>{% trans 'Create account' %}</h5>
+        </div>
+        <div class="card-body table-responsive">
+            <form method="post" action="{{ path }}" id="confirmUserForm"
+                  autocomplete="off">{% csrf_token %}
+                {% bootstrap_form_errors confirm_form layout='inline' type='non_fields' %}
+                <div class="col-md-12">
+                    {% bootstrap_field confirm_form.username %}
+                </div>
+                <div class="col-md-12">
+                    {% bootstrap_field confirm_form.display_name %}
+                </div>
+                <div class="col-md-12">
+                    {% bootstrap_field confirm_form.email %}
+                </div>
+                <div class="col-md-12">
+                    {% bootstrap_field confirm_form.password %}
+                </div>
+                <div class="col-md-12">
+                    {% bootstrap_field confirm_form.password_confirm %}
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">{% trans 'Create account' %}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
