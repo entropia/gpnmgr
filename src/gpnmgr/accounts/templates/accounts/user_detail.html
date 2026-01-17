@@ -9,6 +9,12 @@
                     <li>{{ group }}</li>
                 {% endfor %}
             </ul>
+            Teams:
+            <ul>
+                {% for team in object.teams.all %}
+                    <li>{{ team }}</li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
 {% endblock %}
