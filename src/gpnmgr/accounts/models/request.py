@@ -28,12 +28,12 @@ class AccountRequest(models.Model):
 
     inviter = models.ForeignKey(User, verbose_name=_("Inviter"), null=True, blank=True, on_delete=models.SET_NULL)
 
-    is_revoked = models.BooleanField(_("Revokation"), default=False)
+    is_revoked = models.BooleanField(_("Revocation"), default=False)
 
     class Meta:
         ordering = ["-created_at"]
-        verbose_name = _("Account Request")
-        verbose_name_plural = _("Account Requests")
+        verbose_name = _("Account request")
+        verbose_name_plural = _("Account requests")
         default_permissions = ()
         permissions = [
             ('manage_requests', 'May see and revoke requests'),
