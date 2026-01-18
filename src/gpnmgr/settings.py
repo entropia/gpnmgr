@@ -232,8 +232,8 @@ from ldap3 import Server, Connection, ALL, SAFE_RESTARTABLE, AUTO_BIND_NONE
 server = Server(LDAP_BIND_URL, get_info=ALL)
 LDAP_CONNECTION = Connection(server, LDAP_BIND_DN, LDAP_BIND_PASSWORD, auto_bind=AUTO_BIND_NONE)
 
-#if DEBUG:
-#    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+if DEBUG:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 from .permissions import permissions
 PERMISSIONS = permissions
