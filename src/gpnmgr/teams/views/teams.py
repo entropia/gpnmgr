@@ -47,6 +47,7 @@ class TeamCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
     def form_valid(self, form):
         self.object = form.save()
+        messages.success(self.request, _('Team has been created successfully.'))
         if self.request.headers.get('x-requested-with') == 'XMLHttpRequest':
             return JsonResponse({'success': True})
         return super().form_valid(form)
@@ -85,6 +86,7 @@ class TeamModifyView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         self.object = form.save()
+        messages.success(self.request, _('Team has been modified successfully.'))
         if self.request.headers.get('x-requested-with') == 'XMLHttpRequest':
             return JsonResponse({'success': True})
         return super().form_valid(form)

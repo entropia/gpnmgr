@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-18 00:41+0100\n"
+"POT-Creation-Date: 2026-01-18 00:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,7 +57,7 @@ msgstr "Einladungstext"
 #: gpnmgr/accounts/templates/request/invite_list.html:15
 #: gpnmgr/teams/models/team.py:32
 #: gpnmgr/teams/templates/teams/team_detail.html:7
-#: gpnmgr/teams/views/teams.py:124
+#: gpnmgr/teams/views/teams.py:126
 msgid "Team"
 msgstr "Team"
 
@@ -225,7 +225,7 @@ msgstr "Benutzereinladungen"
 msgid "Successfully revoked invite for %(user)s"
 msgstr "Einladung für %(user)s erfolgreich widerrufen"
 
-#: gpnmgr/accounts/views/account_request.py:148
+#: gpnmgr/accounts/views/account_request.py:150
 #, python-format
 msgid ""
 "Error creating the user object in LDAP. Please try again later. Contact us "
@@ -235,7 +235,7 @@ msgstr ""
 "versuch es später erneut. Kontaktiere uns, sollte das Problem bestehen "
 "bleiben. Fehlercode %(result)s: %(message)s"
 
-#: gpnmgr/accounts/views/account_request.py:170
+#: gpnmgr/accounts/views/account_request.py:172
 msgid ""
 "Your account has been created successfully. It might take a few minutes "
 "until it is fully synchronized and active."
@@ -344,11 +344,11 @@ msgstr "Beschreibung"
 msgid "Users"
 msgstr "Benutzer"
 
-#: gpnmgr/mastodon/models/mastodon.py:26 gpnmgr/mastodon/views/mastodon.py:113
+#: gpnmgr/mastodon/models/mastodon.py:26 gpnmgr/mastodon/views/mastodon.py:115
 msgid "Mastodon account"
 msgstr "Mastodon Account"
 
-#: gpnmgr/mastodon/models/mastodon.py:27 gpnmgr/mastodon/views/mastodon.py:96
+#: gpnmgr/mastodon/models/mastodon.py:27 gpnmgr/mastodon/views/mastodon.py:98
 #: gpnmgr/templates/top_nav.html:24
 msgid "Mastodon accounts"
 msgstr "Mastodon Accounts"
@@ -386,17 +386,25 @@ msgstr "Benutzer hinzufügen"
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: gpnmgr/mastodon/views/mastodon.py:155
+#: gpnmgr/mastodon/views/mastodon.py:47
+msgid "Account has been created successfully."
+msgstr "Account wurde erfolgreich erstellt."
+
+#: gpnmgr/mastodon/views/mastodon.py:83
+msgid "Mastodon account has been modified successfully."
+msgstr "Mastodon account wurde erfolgreich geändert."
+
+#: gpnmgr/mastodon/views/mastodon.py:157
 #, python-format
 msgid "Successfully added %(user)s to account"
 msgstr "%(user)s erfolgreich zum Account hinzugefügt"
 
-#: gpnmgr/mastodon/views/mastodon.py:180 gpnmgr/teams/views/teams.py:196
+#: gpnmgr/mastodon/views/mastodon.py:182 gpnmgr/teams/views/teams.py:198
 #, python-format
 msgid "Successfully removed %(user)s"
 msgstr "%(user)s erfolgreich entfernt"
 
-#: gpnmgr/mastodon/views/mastodon.py:184
+#: gpnmgr/mastodon/views/mastodon.py:186
 #, python-format
 msgid "%(user)s was not a user of the account"
 msgstr "%(user)s war kein Nutzer des Accounts"
@@ -461,7 +469,7 @@ msgstr "Administratoren"
 msgid "Members"
 msgstr "Mitglieder"
 
-#: gpnmgr/teams/models/team.py:33 gpnmgr/teams/views/teams.py:107
+#: gpnmgr/teams/models/team.py:33 gpnmgr/teams/views/teams.py:109
 msgid "Teams"
 msgstr "Teams"
 
@@ -502,38 +510,46 @@ msgstr "Möchtest du wirklich %(member)s entfernen?"
 msgid "Add member"
 msgstr "Mitglied hinzufügen"
 
-#: gpnmgr/teams/views/teams.py:166
+#: gpnmgr/teams/views/teams.py:50
+msgid "Team has been created successfully."
+msgstr "Team wurde erfolgreich erstellt."
+
+#: gpnmgr/teams/views/teams.py:89
+msgid "Team has been modified successfully."
+msgstr "Team wurde erfolgreich bearbeitet."
+
+#: gpnmgr/teams/views/teams.py:168
 #, python-format
 msgid "Successfully added %(member)s to team"
 msgstr "Erfolgreich %(member)s zum Team hinzugefügt"
 
-#: gpnmgr/teams/views/teams.py:192
+#: gpnmgr/teams/views/teams.py:194
 #, python-format
 msgid "You don't have permissions to remove admin %(user)s from team"
 msgstr ""
 "Du hast keine Berechtigungen um den Admin %(user)s aus dem Team zu entfernen"
 
-#: gpnmgr/teams/views/teams.py:200
+#: gpnmgr/teams/views/teams.py:202
 #, python-format
 msgid "%(user)s was not a member of the team"
 msgstr "%(user)s war kein Mitglied des Teams"
 
-#: gpnmgr/teams/views/teams.py:219
+#: gpnmgr/teams/views/teams.py:221
 #, python-format
 msgid "%(user)s is already admin of the team"
 msgstr "%(user)s ist bereits Admin des Teams"
 
-#: gpnmgr/teams/views/teams.py:228
+#: gpnmgr/teams/views/teams.py:230
 #, python-format
 msgid "Successfully promoted %(user)s"
 msgstr "%(user)s erfolgreich hochgestuft"
 
-#: gpnmgr/teams/views/teams.py:233
+#: gpnmgr/teams/views/teams.py:235
 #, python-format
 msgid "%(user)s is not a member of the team"
 msgstr "%(user)s ist kein Mitglied des Teams"
 
-#: gpnmgr/teams/views/teams.py:249
+#: gpnmgr/teams/views/teams.py:251
 #, python-format
 msgid "Successfully demoted %(user)s"
 msgstr "%(user)s erfolgreich herabgestuft"
