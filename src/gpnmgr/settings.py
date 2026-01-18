@@ -213,6 +213,12 @@ USER_INVITE_TIMEOUT_DAYS = int(os.environ.get('USER_INVITE_TIMEOUT_DAYS', '7'))
 USER_INVITE_FROM_EMAIL = os.environ.get('USER_INVITE_FROM_EMAIL', 'invite@example.com')
 USER_INVITE_BASE_URL = os.environ.get('USER_INVITE_BASE_URL', 'https://example.com')
 
+EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'true').lower() in ['true', 'y', 'yes']
+EMAIL_PORT = int(os.environ.get('EMAIL_PORT', '587'))
+EMAIL_HOST = os.environ.get('EMAIL_HOST', 'mail.example.com')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'example@example.com')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'SuperSecurePassword!')
+
 try:
     from bootstrap.settings import BOOTSTRAP5
 
