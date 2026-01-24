@@ -6,7 +6,7 @@
                 <div class="card-header card-header-buttons">
                     <h5>{% trans 'Team' %} {{ object }}</h5>
                     <div>
-                        {% if perms.teams.manage_teams %}
+                        {% if is_team_admin %}
                             <a class="text-primary" href="#" data-bs-toggle="modal"
                                data-bs-target="#modifyTeamModal"><span class="fa-fw fa-solid fa-pencil"></span></a>
                         {% endif %}
@@ -69,7 +69,7 @@
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 {{ member }}
                                 <div class="btn-group" role="group">
-                                    {% if perms.teams.manage_teams %}
+                                    {% if is_team_admin %}
                                         <a class="badge btn btn-info" href="#" data-bs-toggle="modal"
                                            data-bs-target="#confirmPromotionModal{{ member.pk }}"><span
                                                 class="fa-solid fa-up-long"></span></a>
@@ -162,7 +162,7 @@
     {% endif %}
 {% endblock %}
 {% block javascript %}
-    {% if perms.teams.manage_teams %}
+    {% if is_team_admin %}
         <script>
             document.addEventListener('DOMContentLoaded', () => {
                 modalSubmitHandler('modifyTeamModal');

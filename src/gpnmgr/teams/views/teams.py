@@ -211,7 +211,6 @@ class TeamMemberRemoveView(LoginRequiredMixin, PermissionRequiredMixin, View):
         return self.request.user.has_perm('teams.manage_teams')
 
 class TeamMemberPromoteView(LoginRequiredMixin, PermissionRequiredMixin, View):
-    permission_required = 'teams.manage_teams'
     http_method_names = ('get', )
 
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
@@ -238,8 +237,12 @@ class TeamMemberPromoteView(LoginRequiredMixin, PermissionRequiredMixin, View):
 
         return HttpResponseRedirect(reverse_lazy('team_detail', kwargs={'pk': kwargs['pk']}))
 
+    def has_permission(self):
+        if self.request.user in get_object_or_404(Team, pk=self.kwargs.get('pk')).admins.all():
+            return True
+        return self.request.user.has_perm('teams.manage_teams')
+
 class TeamMemberDemoteView(LoginRequiredMixin, PermissionRequiredMixin, View):
-    permission_required = 'teams.manage_teams'
     http_method_names = ('get', )
 
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
@@ -253,3 +256,8 @@ class TeamMemberDemoteView(LoginRequiredMixin, PermissionRequiredMixin, View):
             })
 
         return HttpResponseRedirect(reverse_lazy('team_detail', kwargs={'pk': kwargs['pk']}))
+
+    def has_permission(self):
+        if self.request.user in get_object_or_404(Team, pk=self.kwargs.get('pk')).admins.all():
+            return True
+        return self.request.user.has_perm('teams.manage_teams')
