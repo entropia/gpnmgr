@@ -50,4 +50,4 @@ repository = 'https://github.com/entropia/gpnmgr'
 where=['src']
 
 [tool.setuptools.package-data]
-shiftings = ['py.typed']
+gpnmgr = ['py.typed']
