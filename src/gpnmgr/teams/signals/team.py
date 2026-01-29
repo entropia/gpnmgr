@@ -23,7 +23,7 @@ def ensure_admin_is_member(sender, instance, action, pk_set, **kwargs):
             )
 
 @receiver(m2m_changed, sender=Team.members.through)
-def sync_member_change_to_ldap(sender, instance, action, pk_set, **kwargs):
+async def sync_member_change_to_ldap(sender, instance, action, pk_set, **kwargs):
     """
     Sync member changes to LDAP
     """
@@ -66,7 +66,7 @@ def sync_member_change_to_ldap(sender, instance, action, pk_set, **kwargs):
     conn.unbind()
 
 @receiver(m2m_changed, sender=Team.admins.through)
-def sync_admin_change_to_ldap(sender, instance, action, pk_set, **kwargs):
+async def sync_admin_change_to_ldap(sender, instance, action, pk_set, **kwargs):
     """
     Sync admin changes to LDAP
     """
