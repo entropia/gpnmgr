@@ -7,8 +7,18 @@ from django.utils.translation import gettext_lazy as _
 from gpnmgr.accounts.models import User
 
 
+def validate_username(value):
+    import re
+    if re.match(r"^[a-zA-Z0-9._-]+$", value) is None:
+        raise ValidationError(_('Username may only contain letters, numbers, dots, dashes and underscores.'))
+    if len(value) < 3:
+        raise ValidationError(_('Username must be at least 3 characters long.'))
+    if value[0] in ['.', '_', '-'] or value[-1] in ['.', '_', '-']:
+        raise ValidationError(_('Username may not start or end with a dot, dash or underscore.'))
+
+
 class AccountRequestConfirmForm(Form):
-    username = CharField(required=True)
+    username = CharField(required=True, validators=[validate_username])
     display_name = CharField(required=True)
     email = EmailField(disabled=True)
     password = CharField(required=True, widget=PasswordInput)

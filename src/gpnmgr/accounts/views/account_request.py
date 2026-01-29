@@ -3,7 +3,6 @@ from typing import Any
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.forms import EmailInput
 from django.http import JsonResponse, HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
@@ -18,7 +17,6 @@ from gpnmgr.accounts.forms.account_request_confirm import AccountRequestConfirmF
 from gpnmgr.accounts.models import User
 from gpnmgr.accounts.models.request import AccountRequest
 from gpnmgr.settings import LDAP_CONNECTION
-from gpnmgr.teams.models import Team
 
 
 class AccountRequestView(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
