@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-18 00:58+0100\n"
+"POT-Creation-Date: 2026-01-30 00:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,18 +18,32 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: gpnmgr/accounts/forms/account_request_confirm.py:20
-#: gpnmgr/accounts/forms/account_request_confirm.py:21
+#: gpnmgr/accounts/forms/account_request_confirm.py:13
+msgid ""
+"Username may only contain letters, numbers, dots, dashes and underscores."
+msgstr ""
+"Der Benutzername darf nur Buchstaben, Zahlen, Punkte, Bindestriche und Unterstriche enthalten."
+
+#: gpnmgr/accounts/forms/account_request_confirm.py:15
+msgid "Username must be at least 3 characters long."
+msgstr "Der Benutzername muss mindestens drei Zeichen lang sein."
+
+#: gpnmgr/accounts/forms/account_request_confirm.py:17
+msgid "Username may not start or end with a dot, dash or underscore."
+msgstr "Der Benutzername darf nicht mit einem Punkt, Bindestrich oder Unterstrich anfangen oder enden."
+
+#: gpnmgr/accounts/forms/account_request_confirm.py:30
+#: gpnmgr/accounts/forms/account_request_confirm.py:31
 #: gpnmgr/mastodon/forms/add_user_form.py:18
 #: gpnmgr/teams/forms/add_member_form.py:18
 msgid "Enter users to add"
 msgstr "Benutzer zum Hinzufügen eintragen"
 
-#: gpnmgr/accounts/forms/account_request_confirm.py:26
+#: gpnmgr/accounts/forms/account_request_confirm.py:36
 msgid "The username is already taken."
 msgstr "Der Benutzername ist schon in Verwendung."
 
-#: gpnmgr/accounts/forms/account_request_confirm.py:31
+#: gpnmgr/accounts/forms/account_request_confirm.py:41
 msgid "Passwords do not match."
 msgstr "Die Passwörter sind nicht identisch."
 
@@ -211,21 +225,21 @@ msgstr "Möchtest du wirklich die Einladung für %(name)s widerrufen?"
 msgid "Revoke"
 msgstr "Widerrufen"
 
-#: gpnmgr/accounts/views/account_request.py:55
+#: gpnmgr/accounts/views/account_request.py:53
 #, python-format
 msgid "Successfully invited %(user)s"
 msgstr "%(user)s erfolgreich eingeladen"
 
-#: gpnmgr/accounts/views/account_request.py:79 gpnmgr/templates/top_nav.html:30
+#: gpnmgr/accounts/views/account_request.py:77 gpnmgr/templates/top_nav.html:30
 msgid "User invitations"
 msgstr "Benutzereinladungen"
 
-#: gpnmgr/accounts/views/account_request.py:91
+#: gpnmgr/accounts/views/account_request.py:89
 #, python-format
 msgid "Successfully revoked invite for %(user)s"
 msgstr "Einladung für %(user)s erfolgreich widerrufen"
 
-#: gpnmgr/accounts/views/account_request.py:150
+#: gpnmgr/accounts/views/account_request.py:148
 #, python-format
 msgid ""
 "Error creating the user object in LDAP. Please try again later. Contact us "
@@ -235,7 +249,7 @@ msgstr ""
 "versuch es später erneut. Kontaktiere uns, sollte das Problem bestehen "
 "bleiben. Fehlercode %(result)s: %(message)s"
 
-#: gpnmgr/accounts/views/account_request.py:172
+#: gpnmgr/accounts/views/account_request.py:170
 msgid ""
 "Your account has been created successfully. It might take a few minutes "
 "until it is fully synchronized and active."
@@ -534,22 +548,22 @@ msgstr ""
 msgid "%(user)s was not a member of the team"
 msgstr "%(user)s war kein Mitglied des Teams"
 
-#: gpnmgr/teams/views/teams.py:221
+#: gpnmgr/teams/views/teams.py:220
 #, python-format
 msgid "%(user)s is already admin of the team"
 msgstr "%(user)s ist bereits Admin des Teams"
 
-#: gpnmgr/teams/views/teams.py:230
+#: gpnmgr/teams/views/teams.py:229
 #, python-format
 msgid "Successfully promoted %(user)s"
 msgstr "%(user)s erfolgreich hochgestuft"
 
-#: gpnmgr/teams/views/teams.py:235
+#: gpnmgr/teams/views/teams.py:234
 #, python-format
 msgid "%(user)s is not a member of the team"
 msgstr "%(user)s ist kein Mitglied des Teams"
 
-#: gpnmgr/teams/views/teams.py:251
+#: gpnmgr/teams/views/teams.py:254
 #, python-format
 msgid "Successfully demoted %(user)s"
 msgstr "%(user)s erfolgreich herabgestuft"
