@@ -11,7 +11,7 @@ from gpnmgr.accounts.models.request import AccountRequest
 
 # Send invite email on creation
 @receiver(post_save, sender=AccountRequest)
-async def email_invite_on_creation(sender, instance, created, **kwargs):
+def email_invite_on_creation(sender, instance, created, **kwargs):
     if created:
         invite_link = settings.USER_INVITE_BASE_URL + reverse_lazy('user_invite_confirm',
                                                                    kwargs={
