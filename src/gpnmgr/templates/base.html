@@ -61,7 +61,10 @@
 
         modalForm.addEventListener('submit', async function (e) {
             e.preventDefault();
-            document.querySelector(`#${modal_prefix}Form .btn-success`).disabled = true;
+            try {
+                document.querySelector(`#${modal_prefix}Form button[type="submit"]`).disabled = true;
+            } catch (error) {}
+
             const formData = new FormData(modalForm);
 
             try {
