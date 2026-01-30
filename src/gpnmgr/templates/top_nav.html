@@ -18,12 +18,10 @@
                         {% trans 'List teams' %}</a>
                 </li>
                 {% endif %}
-                {% if perms.mastodon.manage_accounts %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'mastodon_list' %}"><span class="fa-fw fa-brands fa-mastodon"></span>
-                            {% trans 'Mastodon accounts' %}</a>
-                    </li>
-                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'mastodon_list' %}"><span class="fa-fw fa-brands fa-mastodon"></span>
+                        {% trans 'Mastodon accounts' %}</a>
+                </li>
                 {% if perms.accounts.manage_requests %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'user_invitations' %}"><span class="fa-fw fa-solid fa-person-circle-question"></span>
