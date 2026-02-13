@@ -21,7 +21,7 @@ dependencies = [
     'django-bootstrap5==26.2',
     'django-qr-code==4.2.0',
     'django-localflavor==5.0',
-    'gunicorn==25.0.3',
+    'gunicorn==25.1.0',
     'psycopg2-binary==2.9.11',
     'Authlib==1.6.8',
     'requests==2.32.5',
