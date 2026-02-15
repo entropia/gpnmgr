@@ -66,7 +66,6 @@ class AccountRequestView(PermissionRequiredMixin, LoginRequiredMixin, CreateView
 class AccountRequestListView(PermissionRequiredMixin, LoginRequiredMixin, ListView):
     model = AccountRequest
     object: AccountRequest
-    permission_required = 'accounts.manage_requests'
 
     template_name = 'request/invite_list.html'
     http_method_names = ('get', )
@@ -76,6 +75,11 @@ class AccountRequestListView(PermissionRequiredMixin, LoginRequiredMixin, ListVi
 
         context['title'] = _('User invitations')
         return context
+
+    def has_permission(self):
+        if self.request.user.sent_invites.count() > 0:
+            return True
+        return self.request.user.has_perm('accounts.manage_requests')
 
 class RevokeAccountRequestView(LoginRequiredMixin, PermissionRequiredMixin, View):
     permission_required = 'accounts.manage_requests'
@@ -91,6 +95,11 @@ class RevokeAccountRequestView(LoginRequiredMixin, PermissionRequiredMixin, View
         })
 
         return HttpResponseRedirect(reverse_lazy('user_invitations'))
+
+    def has_permission(self):
+        if self.request.user == get_object_or_404(AccountRequest, pk=self.kwargs.get('pk')).inviter:
+            return True
+        return self.request.user.has_perm('accounts.manage_requests')
 
 class AccountRequestConfirmView(FormView):
     form_class = AccountRequestConfirmForm

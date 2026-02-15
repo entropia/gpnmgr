@@ -24,9 +24,9 @@ class AccountRequest(models.Model):
     name = models.CharField(_("Name"), max_length=255, unique=False)
     email = models.EmailField(_("Email"), max_length=255, unique=False)
     invite_text = models.CharField(_("Invite text"), max_length=255, null=True, default=None)
-    team = models.ForeignKey(Team, verbose_name=_("Team"), null=True, blank=True, on_delete=models.SET_NULL)
+    team = models.ForeignKey(Team, verbose_name=_("Team"), null=True, blank=True, on_delete=models.SET_NULL, related_name='member_invites')
 
-    inviter = models.ForeignKey(User, verbose_name=_("Inviter"), null=True, blank=True, on_delete=models.SET_NULL)
+    inviter = models.ForeignKey(User, verbose_name=_("Inviter"), null=True, blank=True, on_delete=models.SET_NULL, related_name='sent_invites')
 
     is_revoked = models.BooleanField(_("Revocation"), default=False)
 
