@@ -21,31 +21,29 @@
                 </thead>
                 <tbody>
                 {% for object in object_list %}
-                    {% if object.inviter == request.user or perms.accounts.manage_requests %}
-                        {% if object.is_revoked %}
-                            <tr class="table-danger">
-                        {% elif object.is_confirmed %}
-                            <tr class="table-success">
-                        {% else %}
-                            <tr>
-                        {% endif %}
-                            <td>{{ object.created_at }}</td>
-                            <td>{{ object.confirmed_at|default_if_none:'-' }}</td>
-                            <td>{{ object.name|default_if_none:'-' }}</td>
-                            <td>{{ object.email }}</td>
-                            <td>{{ object.team }}</td>
-                            <td>{{ object.inviter }}</td>
-                            <td>{{ object.is_valid|fa_checkbox }}</td>
-                            <td>{{ object.is_confirmed|fa_checkbox }}</td>
-                            <td>
-                                {% if object.is_valid %}
-                                <a class="text-danger revoke-invite-button" href="#" data-bs-toggle="modal"
-                                   data-bs-target="#confirmRevokationModal{{ object.pk }}"><span
-                                        class="fa-fw fa-solid fa-ban"></span></a>
-                                {% endif %}
-                            </td>
-                        </tr>
+                    {% if object.is_revoked %}
+                        <tr class="table-danger">
+                    {% elif object.is_confirmed %}
+                        <tr class="table-success">
+                    {% else %}
+                        <tr>
                     {% endif %}
+                        <td>{{ object.created_at }}</td>
+                        <td>{{ object.confirmed_at|default_if_none:'-' }}</td>
+                        <td>{{ object.name|default_if_none:'-' }}</td>
+                        <td>{{ object.email }}</td>
+                        <td>{{ object.team }}</td>
+                        <td>{{ object.inviter }}</td>
+                        <td>{{ object.is_valid|fa_checkbox }}</td>
+                        <td>{{ object.is_confirmed|fa_checkbox }}</td>
+                        <td>
+                            {% if object.is_valid %}
+                            <a class="text-danger revoke-invite-button" href="#" data-bs-toggle="modal"
+                               data-bs-target="#confirmRevokationModal{{ object.pk }}"><span
+                                    class="fa-fw fa-solid fa-ban"></span></a>
+                            {% endif %}
+                        </td>
+                    </tr>
                 {% endfor %}
                 </tbody>
             </table>
@@ -54,7 +52,6 @@
 {% endblock %}
 {% block modals %}
     {% for object in object_list %}
-        {% if object.inviter == request.user or perms.accounts.manage_requests %}
             {% with object.name as name %}
                 <div class="modal fade" id="confirmRevokationModal{{ object.pk }}" tabindex="-1"
                      aria-labelledby="confirmRevokationModal{{ object.pk }}" aria-hidden="true">
@@ -76,7 +73,6 @@
                     </div>
                 </div>
             {% endwith %}
-        {% endif %}
     {% endfor %}
 {% endblock %}
 {% block javascript %}

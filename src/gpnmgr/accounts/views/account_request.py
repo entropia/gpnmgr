@@ -81,6 +81,11 @@ class AccountRequestListView(PermissionRequiredMixin, LoginRequiredMixin, ListVi
             return True
         return self.request.user.has_perm('accounts.manage_requests')
 
+    def get_queryset(self):
+        if self.request.user.has_perm('accounts.manage_requests'):
+            return AccountRequest.objects.all()
+        return self.request.user.sent_invites.all()
+
 class RevokeAccountRequestView(LoginRequiredMixin, PermissionRequiredMixin, View):
     permission_required = 'accounts.manage_requests'
     http_method_names = ('get', )
