@@ -27,6 +27,8 @@ def sync_member_change_to_ldap(sender, instance, action, pk_set, **kwargs):
     """
     Sync member changes to LDAP
     """
+    if not instance.ldap_name:
+        return
     conn = settings.LDAP_CONNECTION
     conn.bind()
     conn.search(
@@ -70,6 +72,8 @@ def sync_admin_change_to_ldap(sender, instance, action, pk_set, **kwargs):
     """
     Sync admin changes to LDAP
     """
+    if not instance.ldap_name:
+        return
     conn = settings.LDAP_CONNECTION
     conn.bind()
     conn.search(
