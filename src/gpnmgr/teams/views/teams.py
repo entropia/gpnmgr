@@ -24,7 +24,7 @@ class TeamCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     template_name = 'teams/team_create.html'
     http_method_names = ('get', 'post', )
 
-    fields = ['name', 'slug', 'cost_center', 'primary_contact', 'ldap_name']
+    fields = ['name', 'slug', 'cost_center', 'primary_contact', 'ldap_name', 'visibility']
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -37,6 +37,7 @@ class TeamCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         form.fields['cost_center'].required = False
         form.fields['primary_contact'].required = False
         form.fields['ldap_name'].required = False
+        form.fields['visibility'].required = True
         return form
 
     def form_invalid(self, form):
@@ -60,7 +61,7 @@ class TeamModifyView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     template_name = 'teams/team_modify.html'
     http_method_names = ('get', 'post', )
 
-    fields = ['name', 'slug', 'cost_center', 'primary_contact', 'ldap_name']
+    fields = ['name', 'slug', 'cost_center', 'primary_contact', 'ldap_name', 'visibility']
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -115,7 +116,10 @@ class TeamListView(LoginRequiredMixin, ListView):
         context['create_form'] = form
         return context
 
-class TeamDetailView(LoginRequiredMixin, DetailView):
+    def get_queryset(self):
+        return Team.visible_teams(self.request.user)
+
+class TeamDetailView(PermissionRequiredMixin, LoginRequiredMixin, DetailView):
     model = Team
     object: Team
     template_name = 'teams/team_detail.html'
@@ -139,6 +143,9 @@ class TeamDetailView(LoginRequiredMixin, DetailView):
         context['is_team_admin'] = self.request.user in get_object_or_404(Team, pk=self.kwargs.get('pk')).admins.all() or self.request.user.has_perm('teams.manage_teams')
 
         return context
+
+    def has_permission(self):
+        return get_object_or_404(Team, pk=self.kwargs.get('pk')) in Team.visible_teams(self.request.user)
 
 class TeamMemberAddView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Team

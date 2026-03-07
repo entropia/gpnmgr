@@ -4,13 +4,18 @@ import uuid
 
 from django.conf import settings
 from django.db import models
-from django.db.models import QuerySet
+from django.db.models import QuerySet, Q
 from django.utils.translation import gettext_lazy as _
 
 from gpnmgr.accounts.models import User
 
 
 class Team(models.Model):
+    class Visibility(models.IntegerChoices):
+        PUBLIC = 0, _('Public')
+        MEMBERS = 1, _('Members only')
+        ADMINS = 2, _('Admins only')
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -26,6 +31,7 @@ class Team(models.Model):
     admins = models.ManyToManyField(User, verbose_name=_("Administrators"), related_name='team_admins', default=None)
     members = models.ManyToManyField(User, verbose_name=_("Members"), related_name='teams', default=None)
 
+    visibility = models.IntegerField(_("Visibility"), choices=Visibility, default=Visibility.PUBLIC)
 
     class Meta:
         ordering = ["slug"]
@@ -60,3 +66,13 @@ class Team(models.Model):
     @property
     def admin_count(self) -> int:
         return self.valid_admins.count()
+
+    @staticmethod
+    def visible_teams(user: User) -> QuerySet:
+        if user.has_perm('teams.manage_teams'):
+            return Team.objects.all()
+        return Team.objects.filter(
+            Q(visibility=0) |
+            Q(visibility=1, members=user) |
+            Q(admins=user)
+        ).distinct()
