@@ -5,6 +5,7 @@
             <h5>{{ title }}</h5>
         </div>
         <div class="card-body table-responsive">
+            {% bootstrap_pagination page_obj justify_content="center" pages_to_show="7" %}
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -20,7 +21,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for object in object_list %}
+                {% for object in page_obj %}
                     {% if object.is_revoked %}
                         <tr class="table-danger">
                     {% elif object.is_confirmed %}
@@ -47,6 +48,9 @@
                 {% endfor %}
                 </tbody>
             </table>
+        </div>
+        <div class="card-footer">
+            {% bootstrap_pagination page_obj justify_content="center" pages_to_show="7" %}
         </div>
     </div>
 {% endblock %}

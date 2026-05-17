@@ -70,6 +70,8 @@ class AccountRequestListView(PermissionRequiredMixin, LoginRequiredMixin, ListVi
     template_name = 'request/invite_list.html'
     http_method_names = ('get', )
 
+    paginate_by = 10
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
