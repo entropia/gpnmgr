@@ -14,3 +14,5 @@ class LogView(PermissionRequiredMixin, ListView):
     permission_required = 'log.view_log'
 
     paginate_by = 10
+
+    queryset = LogEntry.objects.filter(actor_id__isnull=False).order_by('-timestamp')
