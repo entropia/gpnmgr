@@ -4,6 +4,8 @@ COPY . /app
 
 WORKDIR /app
 
+ENV SETUPTOOLS_SCM_PRETEND_VERSION_FOR_django_auditlog 3.4.1
+
 RUN pip install --no-cache-dir -Ue .
 
 RUN chown -R nobody: /app

@@ -17,7 +17,6 @@
                 </thead>
                 <tbody>
                 {% for object in object_list %}
-                    {% if 'admins' not in object.changes and 'members' not in object.changes and 'users' not in object.changes %}
                     <tr>
                         <td>{{ object.timestamp }}</td>
                         <td>{{ object.actor }}</td>
@@ -25,7 +24,6 @@
                         <td>{{ object|capfirst }}</td>
                         <td>{{ object.changes_str|changelog }}</td>
                     </tr>
-                    {% endif %}
                 {% endfor %}
                 </tbody>
             </table>
