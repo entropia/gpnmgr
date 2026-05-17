@@ -5,6 +5,7 @@
             <h5>{% trans 'Logs' %}</h5>
         </div>
         <div class="card-body table-responsive">
+            {% bootstrap_pagination page_obj justify_content="center" pages_to_show="7" %}
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -16,7 +17,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for object in object_list %}
+                {% for object in page_obj %}
                     <tr>
                         <td>{{ object.timestamp }}</td>
                         <td>{{ object.actor }}</td>
@@ -27,6 +28,9 @@
                 {% endfor %}
                 </tbody>
             </table>
+        </div>
+        <div class="card-footer">
+            {% bootstrap_pagination page_obj justify_content="center" pages_to_show="7" %}
         </div>
     </div>
 {% endblock %}

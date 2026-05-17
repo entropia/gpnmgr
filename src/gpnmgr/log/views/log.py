@@ -12,3 +12,5 @@ class LogView(PermissionRequiredMixin, ListView):
     }
     template_name = 'log/log_list.html'
     permission_required = 'log.view_log'
+
+    paginate_by = 10
