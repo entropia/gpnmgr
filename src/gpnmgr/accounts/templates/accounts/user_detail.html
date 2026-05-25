@@ -3,13 +3,22 @@
     <div class="card mb-3 my-3">
         <h5 class="card-header">{% trans 'Profile' %} {{ object }}</h5>
         <div class="card-body">
-            {% trans 'Groups' %}:
+            {% if 'gpnmgr.contactcard' in settings.INSTALLED_APPS %}
+                <h4>{% trans 'Contact-Details' %}</h4>
+                <dl class="row">
+                    {% for key, value in object.contactdetails.contact_details.items %}
+                        <dt class="col-sm-3">{{key}}</dt>
+                        <dd class="col-sm-9">{{value}}</dd>
+                    {% endfor %}
+                </dl>
+            {% endif %}
+            <h4>{% trans 'Permission groups' %}</h4>
             <ul>
                 {% for group in object.groups.all %}
                     <li>{{ group }}</li>
                 {% endfor %}
             </ul>
-            {% trans 'Teams' %}:
+            <h4>{% trans 'Teams' %}</h4>
             <ul>
                 {% for team in object.teams.all %}
                     <li>{{ team }}</li>
