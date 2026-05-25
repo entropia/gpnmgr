@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "bootstrap",
     "django_bootstrap5",
     "gpnmgr.accounts",
+    "gpnmgr.contactcard",
     "gpnmgr.mastodon",
     "gpnmgr.teams",
     "gpnmgr.log"
