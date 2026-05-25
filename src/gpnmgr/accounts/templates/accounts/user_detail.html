@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
     <div class="card mb-3 my-3">
-        <h5 class="card-header">{% trans 'Profile' %}: {{ object }}</h5>
+        <h5 class="card-header">{% trans 'Profile' %} {{ object }}</h5>
         <div class="card-body">
-            Groups:
+            {% trans 'Groups' %}:
             <ul>
                 {% for group in object.groups.all %}
                     <li>{{ group }}</li>
                 {% endfor %}
             </ul>
-            Teams:
+            {% trans 'Teams' %}:
             <ul>
                 {% for team in object.teams.all %}
                     <li>{{ team }}</li>

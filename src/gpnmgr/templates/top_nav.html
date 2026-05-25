@@ -44,9 +44,13 @@
                             <a class="btn btn-info" href="#" data-bs-toggle="modal" data-bs-target="#inviteUserModal"><span
                                     class="fa-fw fa-solid fa-user-clock"></span> {% trans 'Invite user' %}</a>
                         {% endif %}
+                        {% if request.user.is_authenticated %}
+                            <a class="btn btn-light btn-outline-dark" href="{% url 'user_profile' %}"><span
+                                    class="fa-fw fa-solid fa-user"></span>  {% trans 'Profile' %}</a>
+                        {% endif %}
                         {% get_language_info_list for LANGUAGES as languages %}
                         {% if settings.USE_I18N and languages|length > 1 %}
-                            <form class="btn btn-light p-0" action="{% url 'set_language' %}" method="post">
+                            <form class="btn btn-light btn-outline-dark p-0" action="{% url 'set_language' %}" method="post">
                                 {% csrf_token %}
                                 <select class="form-select btn btn-light m-0" name="language" onchange="this.form.submit()"
                                         aria-label="{% trans 'Language selector' %}">
