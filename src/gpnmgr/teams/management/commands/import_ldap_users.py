@@ -3,7 +3,7 @@ from django.core.management import BaseCommand
 from ldap3 import SUBTREE
 
 from gpnmgr.accounts.models import User
-from gpnmgr.contactcard.models import ContactDetails
+
 from gpnmgr.settings import LDAP_USER_PK, LDAP_USER_MAIL_PK
 
 
@@ -99,6 +99,7 @@ class Command(BaseCommand):
                     print(f'User already exists: {username}. Synced attributes')
 
                 if self.sync_contactcard:
+                    from gpnmgr.contactcard.models import ContactDetails
                     ContactDetails(pk=user.pk, **contactcard).save_base(raw=True)
                     print(f'Synced contactcard for user: {username}')
 
