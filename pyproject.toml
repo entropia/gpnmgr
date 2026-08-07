@@ -35,7 +35,7 @@ tests = [
     'coverage==7.14.0',
     'django-stubs==6.0.5',
     'mypy==2.3.0',
-    'pylint==4.0.5',
+    'pylint==4.0.6',
     'pylint-django==2.7.0',
     'types-requests~=2.33.0',
 ]
