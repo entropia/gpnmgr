@@ -21,7 +21,7 @@ dependencies = [
     'django-auditlog @ https://github.com/jazzband/django-auditlog/archive/7e33d8261ea9496dabeed0283205f006219f149b.zip',
     'django-bootstrap5==26.2',
     'django-qr-code==4.2.0',
-    'django-localflavor==5.0',
+    'django-localflavor==5.1',
     'gunicorn==26.0.0',
     'psycopg2-binary==2.9.12',
     'Authlib==1.7.2',
