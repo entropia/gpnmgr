@@ -33,7 +33,7 @@ dependencies = [
 [project.optional-dependencies]
 tests = [
     'coverage==7.15.4',
-    'django-stubs==6.0.5',
+    'django-stubs==6.0.9',
     'mypy==2.3.0',
     'pylint==4.0.5',
     'pylint-django==2.7.0',
