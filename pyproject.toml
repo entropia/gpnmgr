@@ -19,7 +19,7 @@ dependencies = [
     'Django==6.1.1',
     #'django-auditlog==3.4.1',
     'django-auditlog @ https://github.com/jazzband/django-auditlog/archive/7e33d8261ea9496dabeed0283205f006219f149b.zip',
-    'django-bootstrap5==26.2',
+    'django-bootstrap5==26.3',
     'django-qr-code==4.2.0',
     'django-localflavor==5.1',
     'gunicorn==26.0.0',
