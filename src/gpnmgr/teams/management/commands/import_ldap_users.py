@@ -62,7 +62,7 @@ class Command(BaseCommand):
                     if settings.CONTACTCARD_FIELDS[attr]['is_list']:
                         contactcard[attr] = ', '.join([str(entry) for entry in attrs.get(attr, [])])
                     else:
-                        contactcard[attr] = None if len(attrs.get(LDAP_USER_MAIL_PK, [None])) == 0 else attrs.get(LDAP_USER_MAIL_PK, [None])[0] or ''
+                        contactcard[attr] = None if len(attrs.get(attr, [None])) == 0 else attrs.get(attr, [None])[0] or ''
 
             if not username:
                 print(f'Skipping entry without {LDAP_USER_PK}: {entry.entry_dn}')
